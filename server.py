@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 import serial
 import re
-app = Flask(__name__)
 
 DEVICE = '/dev/ttyATH0'
 
@@ -22,6 +21,7 @@ COMMANDS = {
                 }
 }
 
+app = Flask(__name__, static_url_path='/')
 ser = serial.Serial(DEVICE, SPEED, timeout=1)
 
 def read_serial(command):
