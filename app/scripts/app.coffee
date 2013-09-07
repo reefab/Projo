@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ProjoApp', [])
+angular.module('ProjoApp', ['powerServices'])
   .config ($routeProvider) ->
     $routeProvider
       .when '/',

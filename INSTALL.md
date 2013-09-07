@@ -141,7 +141,7 @@ Install required python packages:
 
     opkg install distribute python-openssl python pyserial
 
-Activate the swap partition create previously:
+Activate the swap partition created previously:
 
     swapon /dev/sda2
 
