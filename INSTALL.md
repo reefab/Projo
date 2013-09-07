@@ -80,7 +80,8 @@ Start avahi at boot:
 As the 4MB of flash built in into the router won't be enough for our needs,
 let's add more space using a usb key.
 Create an ext4 partition on usb key using another computer and plug it afterwards
-on the router.
+on the router. Also create a small swap partition that will be only used
+punctually.
 
 Install usb storage support packages:
 
@@ -116,7 +117,14 @@ Now there is a bunch of free space instead of having to fit everything in 4M
 Install required python packages:
 
     opkg install distribute python-openssl python pyserial
-    easy_install pip
+
+Activate the swap partition create previously:
+
+    swapon /dev/sda2
+
+Install Flask 
+
+    easy_install Flask
 
 ## Serial port
 
