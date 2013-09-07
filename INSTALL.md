@@ -21,20 +21,36 @@ Make it a wireless client:
 
      config wifi-iface
             option device   radio0
-            option network  lan
+            option network  wlan
             option mode     sta
             option ssid     <SSID> 
             option encryption psk2
             option key <password>
-        
-### Wired network
 
-Disable dhcp server for lan: 
+Add the network interface configuration in `/etc/config/network`
+
+    config interface 'wlan'
+            option proto 'dhcp'
+
+Add wlan interface to firewall rules: `/etc/config/firewall`
+
+    config zone
+            option name             lan
+            option network          'lan wlan'
+
+Disable dhcp server for wlan: 
 
 `/etc/config/dhcp`
 
-    config dhcp lan
+    config dhcp wlan
             option ignore   1        
+
+Note that I haven't been able to have both Ethernet and Wifi connected to the
+same network at the same time. If you want to use wifi, reboot and unplug the
+ethernet cable.
+
+### Wired network
+
 
 Disable static ip for wired network:
 
@@ -43,12 +59,13 @@ Disable static ip for wired network:
     config interface 'lan'
             option ifname 'eth0'
             option proto 'dhcp'
-    
-Add wlan interface to firewall rules: `/etc/config/firewall`
 
-    config zone
-            option name             lan
-            option network          'lan wlan'
+Disable dhcp server for lan: 
+
+`/etc/config/dhcp`
+
+    config dhcp lan
+            option ignore   1        
 
 ### Auto-discovery
 
@@ -77,7 +94,7 @@ Start avahi at boot:
 
 ## Storage
         
-As the 4MB of flash built in into the router won't be enough for our needs,
+As the 4MB of flash built-in into the router won't be enough for our needs,
 let's add more space using a usb key.
 Create an ext4 partition on usb key using another computer and plug it afterwards
 on the router. Also create a small swap partition that will be only used
@@ -111,6 +128,12 @@ Reboot and you should see something like that:
     rootfs                    3.7G    122.3M      3.4G   3% /
 
 Now there is a bunch of free space instead of having to fit everything in 4M
+
+## Serial port
+
+Comment this line in `/etc/inittab` so we can free the serial port for our use instead of a console:
+
+    #ttyATH0::askfirst:/bin/ash --login
 
 ## Web server
 
