@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import serial
 import re
 
@@ -21,16 +21,14 @@ COMMANDS = {
                 }
 }
 
-app = Flask(__name__, static_url_path='/')
+app = Flask(__name__, static_url_path='')
 ser = serial.Serial(DEVICE, SPEED, timeout=1)
 
 def read_serial(command):
     """Send a command via serial and return the answer"""
     ser_command = "\r*%s#\r" % command
-    app.logger.debug(ser_command)
     ser.write(ser_command)
     out = ser.readlines()
-    app.logger.debug(out)
     m = re.search("(\w+)=(\w+)", out[-1])
     answer = m.group(2)
     return answer
@@ -38,8 +36,11 @@ def read_serial(command):
 def write_serial(command):
     """Send a command via serial"""
     ser_command = "\r*%s#\r" % command
-    app.logger.debug(ser_command)
     ser.write(ser_command)
+
+@app.route("/")
+def index():
+    return send_file("static/index.html")
 
 @app.route('/power', methods=['GET'])
 @app.route('/power/<status>', methods=['PUT'])
@@ -82,6 +83,6 @@ def modelname(status=None):
         return jsonify({"status": answer.lower()})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port='80')
 
 ser.close()
