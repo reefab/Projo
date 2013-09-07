@@ -10,13 +10,16 @@ SPEED = 115200
 COMMANDS = {
         "power": {"on": "POW=ON", "off": "POW=OFF", "status": "POW=?"},
         "blank": {"on": "BLANK=ON", "off": "BLANK=OFF", "status": "BLANK=?"},
-        "menu":  {"on": "MENU=ON", "off": "MENU=OFF"},
         "model": {"status": "MODELNAME=?"},
-        "up": "UP",
-        "down": "DOWN",
-        "right": "RIGHT",
-        "left": "LEFT",
-        "enter": "ENTER"
+        "menu":  {
+                    "on": "MENU=ON",
+                    "off": "MENU=OFF",
+                    "up": "UP",
+                    "down": "DOWN",
+                    "right": "RIGHT",
+                    "left": "LEFT",
+                    "enter": "ENTER"
+                }
 }
 
 ser = serial.Serial(DEVICE, SPEED, timeout=1)
@@ -47,8 +50,10 @@ def power(status=None):
     else:
         if status == 'on':
             write_serial(COMMANDS["power"]["on"])
+            return jsonify({"status": "ok"})
         elif status == 'off':
             write_serial(COMMANDS["power"]["off"])
+            return jsonify({"status": "ok"})
 
 @app.route('/blank', methods=['GET'])
 @app.route('/blank/<status>', methods=['PUT'])
@@ -59,8 +64,22 @@ def blank(status=None):
     else:
         if status == 'on':
             write_serial(COMMANDS["blank"]["on"])
+            return jsonify({"status": "ok"})
         elif status == 'off':
             write_serial(COMMANDS["blank"]["off"])
+            return jsonify({"status": "ok"})
+
+@app.route('/menu/<action>', methods=['PUT'])
+def menu(action=None):
+    if action in COMMANDS["menu"]:
+        write_serial(COMMANDS["menu"][action])
+        return jsonify({"status": "ok"})
+
+@app.route('/modelname', methods=['GET'])
+def modelname(status=None):
+    if request.method == 'GET':
+        answer = read_serial(COMMANDS["modelname"]['status'])
+        return jsonify({"status": answer.lower()})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
