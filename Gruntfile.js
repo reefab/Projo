@@ -128,6 +128,14 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
+    compass: {
+        dist: {
+          options: {
+            sassDir: '<%= yeoman.app %>/styles',
+            cssDir: '.tmp/styles/',
+          }
+        }
+   },
     coffee: {
       options: {
         sourceMap: true,
@@ -270,6 +278,7 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'coffee:dist',
+        'compass',
         'copy:styles'
       ],
       test: [
@@ -278,6 +287,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'coffee',
+        'compass',
         'copy:styles',
         'imagemin',
         'svgmin',
@@ -357,6 +367,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'jshint',
     'test',
+    'compass',
     'build'
   ]);
 };
