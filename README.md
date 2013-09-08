@@ -23,6 +23,8 @@ Crestron protocol seems to be common to multiple brand of AV equipement.
 
 ## Software
 
+![Screenshot](screenshot.png)
+
  * OS: [OpenWRT](https://openwrt.org)
  * Web Server: [Flask](http://flask.pocoo.org)
  * Web App: [AngularJS](http://angularjs.org)
