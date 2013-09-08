@@ -3,6 +3,9 @@
 A server and mobile web app I made to control my video projector without a
 remote.
 
+I can now switch the projector on/off, navigate the menu and blank the screen
+using my phone.
+
 My current setup is a [Benq
 W1070](http://www.benq.com/product/projector/w1070/) projector that is linked to
 a [TP-Link TL-MR3020](http://wiki.openwrt.org/toh/tp-link/tl-mr3020) wireless device via
@@ -24,7 +27,7 @@ Crestron protocol seems to be common to multiple brand of AV equipement.
  * Web Server: [Flask](http://flask.pocoo.org)
  * Web App: [AngularJS](http://angularjs.org)
 
-[Bonjour](http://en.wikipedia.org/wiki/Bonjour_(software)) is used for
+[Bonjour](http://en.wikipedia.org/wiki/Bonjour_%28software%29) is used for
 auto-discovery so I just need to go the `http://projo.local` on my mobile
 devices and optionnaly add the App to the Home Screen.
 

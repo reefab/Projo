@@ -1,14 +1,8 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, input, textarea, header, button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-weight: inherit;
-    font-style: inherit;
-    font-size: 100%;
-    font-family: inherit;
-    vertical-align: baseline;
-} 
+@import "compass";
+$FontAwesomePath: "../bower_components/font-awesome/font/" ;
+@import "../bower_components/font-awesome/scss/font-awesome.scss";
+
+$main_color: #9a42ff;
 
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -25,9 +19,10 @@ body {
 	background-color: rgb(255, 255, 255);
 }
 
-
 #toucharea {
-    background: #000000;
+    background-color: rgb(125,126,125);
+    @include filter-gradient(#7d7e7d, #0e0e0e, horizontal);
+    @include background-image(radial-gradient(center, ellipse cover, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%));
     width: 100%;
     height: 100%;
     top: 0;
@@ -43,9 +38,8 @@ button {
     border: 0;
 }
 
-header {
+@mixin bar {
 	position: absolute;
-	top:0;
 	height: 44px;
 	line-height: 44px;
 	width: 100%;
@@ -60,92 +54,60 @@ header {
 	   -moz-user-select: none;
 	        user-select: none;
 	-webkit-touch-callout: none;
+}
+
+header {
+    @include bar;
+	top:0;
 }
 
 footer {
-	position: absolute;
+    @include bar;
 	bottom:0;
+}
+
+@mixin button {
+	position: absolute;
+	display: inline-block;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	font-size: 17px;
+	color: $main_color;
+	padding: 0;
+	font-weight: 300;
 	height: 44px;
 	line-height: 44px;
-	width: 100%;
-	padding-top: 0;
-	background-color: rgba(248, 248, 248, 0.9);
-	background-image: linear-gradient(0deg, rgb(200, 199, 204), rgb(200, 199, 204) 50%, transparent 50%);
-	background-size: 100% 1px;
-	background-repeat: no-repeat;
-	background-position: bottom;
-	z-index: 10;
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	        user-select: none;
-	-webkit-touch-callout: none;
+	text-overflow: ellipsis !important;
+	max-width: 140px;
+    border: 0;
 }
 
 header button {
-	position: absolute;
+    @include button;
 	top: 0;
-	display: inline-block;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	font-size: 17px;
-	color:rgb(21, 125, 251);
-	padding: 0;
-	font-weight: 300;
-	height: 44px;
-	line-height: 44px;
-	text-overflow: ellipsis !important; /* why so !important ? */
-	max-width: 140px;
 }
 
 footer button {
-	position: absolute;
+    @include button;
 	bottom: 0;
-	display: inline-block;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	font-size: 17px;
-	color:rgb(21, 125, 251);
-	padding: 0;
-	font-weight: 300;
-	height: 44px;
-	line-height: 44px;
-	text-overflow: ellipsis !important; /* why so !important ? */
-	max-width: 140px;
 }
 
-button:active {
-	opacity: 0.3;
-}
 button.bold {
 	font-weight: 500;
 }
-button.green {
-	color:rgb(41, 197, 25);
-}
+
 button.disabled {
 	color:rgb(200, 199, 204);
 }
-button.arrow {
-	background-size: 24px 44px;
-	background-repeat: no-repeat;
-}
 
 button.left {
-	left:0;
+	left: 0;
 	padding-left: 9px;
 }
-button.left.arrow {
-	padding-left: 23px;
-	/* background-image: url(../img/backBtn.svg); */
-	background-position: left bottom;
-}
+
 button.right {
-	right:0;
+	right: 0;
 	text-align: right;
 	padding-right: 9px;
-}
-button.right.arrow {
-	padding-right: 23px;
-	/* background-image: url(../img/nextBtn.svg); */
-	background-position: right bottom;
 }
 
 h1 {
@@ -183,4 +145,3 @@ input, textarea {
 	background-repeat: no-repeat;
 	background-position: bottom;
 }
-

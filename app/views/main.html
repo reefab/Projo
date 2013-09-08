@@ -2,7 +2,7 @@
 
 <header>
     <button class="left" hm-tap="power_switch()" ng-class="{bold: power.status=='on'}"> 
-        <div class="label">Power</div>
+        <div class="label"><i class="icon-off"></i></div>
     </button>
     <h1>{{modelname.status}}</h1>
 </header>
@@ -11,10 +11,10 @@
 </div>
 
 <footer>
-    <button class="left" hm-tap="menu()" ng-disabled="(power.status=='on')">
-        <div class="label">Menu</div>
+    <button class="left" hm-tap="menu()" ng-disabled-blah="(power.status=='on')">
+        <div class="label"><i class="icon-list-alt"></i></div>
     </button>
-    <button class="right" hm-tap="blank_switch()" ng-disabled="(power.status=='on')" ng-class="{bold: blank.status=='on'}">
-        <div class="label">Blank</div>
+    <button class="right" hm-tap="blank_switch()" ng-disabled-blah="(power.status=='on')" ng-class="{bold: blank.status=='on'}">
+        <div class="label"><i class="icon-moon"></i></div>
     </button>
 </footer>
