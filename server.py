@@ -9,7 +9,7 @@ SPEED = 115200
 COMMANDS = {
         "power": {"on": "POW=ON", "off": "POW=OFF", "status": "POW=?"},
         "blank": {"on": "BLANK=ON", "off": "BLANK=OFF", "status": "BLANK=?"},
-        "model": {"status": "MODELNAME=?"},
+        "modelname": {"status": "MODELNAME=?"},
         "menu":  {
                     "on": "MENU=ON",
                     "off": "MENU=OFF",
@@ -83,6 +83,6 @@ def modelname(status=None):
         return jsonify({"status": answer.lower()})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='80')
+    app.run(host='0.0.0.0', port=80)
 
 ser.close()

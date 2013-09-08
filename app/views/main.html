@@ -1,3 +1,20 @@
-<div>
-    <h1>Power status: {{power.status}}</h1>
+<div data-ng-controller="MainCtrl" data-ng-init="init()"></div>
+
+<header>
+    <button class="left" hm-tap="power_switch()" ng-class="{bold: power.status=='on'}"> 
+        <div class="label">Power</div>
+    </button>
+    <h1>{{modelname.status}}</h1>
+</header>
+
+<div id="toucharea" hm-tap="enter()" hm-doubletap="back()" hm-swipeup="menuup()" hm-swipedown="menudown()" hm-swipeleft="menuleft()" hm-swiperight="menuright()" hm-options="{drag: false, transform: false}">
 </div>
+
+<footer>
+    <button class="left" hm-tap="menu()" ng-disabled="(power.status=='on')">
+        <div class="label">Menu</div>
+    </button>
+    <button class="right" hm-tap="blank_switch()" ng-disabled="(power.status=='on')" ng-class="{bold: blank.status=='on'}">
+        <div class="label">Blank</div>
+    </button>
+</footer>

@@ -1,22 +1,186 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, input, textarea, header, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+} 
+
 body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	font-size: 18px;
+	overflow: hidden;
+	word-wrap: break-word;
+	-webkit-text-size-adjust: none;
+	        text-size-adjust: none;
+	font-weight: 300;
+	line-height: 1;
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 255);
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+
+#toucharea {
+    background: #000000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    position: absolute;
 }
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+button {
+	background: transparent; /* Fix for Chrome and Firefox OS */
 }
+
+.label {
+    border: 0;
+}
+
+header {
+	position: absolute;
+	top:0;
+	height: 44px;
+	line-height: 44px;
+	width: 100%;
+	padding-top: 0;
+	background-color: rgba(248, 248, 248, 0.9);
+	background-image: linear-gradient(0deg, rgb(200, 199, 204), rgb(200, 199, 204) 50%, transparent 50%);
+	background-size: 100% 1px;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	z-index: 10;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	-webkit-touch-callout: none;
+}
+
+footer {
+	position: absolute;
+	bottom:0;
+	height: 44px;
+	line-height: 44px;
+	width: 100%;
+	padding-top: 0;
+	background-color: rgba(248, 248, 248, 0.9);
+	background-image: linear-gradient(0deg, rgb(200, 199, 204), rgb(200, 199, 204) 50%, transparent 50%);
+	background-size: 100% 1px;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	z-index: 10;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	-webkit-touch-callout: none;
+}
+
+header button {
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	font-size: 17px;
+	color:rgb(21, 125, 251);
+	padding: 0;
+	font-weight: 300;
+	height: 44px;
+	line-height: 44px;
+	text-overflow: ellipsis !important; /* why so !important ? */
+	max-width: 140px;
+}
+
+footer button {
+	position: absolute;
+	bottom: 0;
+	display: inline-block;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	font-size: 17px;
+	color:rgb(21, 125, 251);
+	padding: 0;
+	font-weight: 300;
+	height: 44px;
+	line-height: 44px;
+	text-overflow: ellipsis !important; /* why so !important ? */
+	max-width: 140px;
+}
+
+button:active {
+	opacity: 0.3;
+}
+button.bold {
+	font-weight: 500;
+}
+button.green {
+	color:rgb(41, 197, 25);
+}
+button.disabled {
+	color:rgb(200, 199, 204);
+}
+button.arrow {
+	background-size: 24px 44px;
+	background-repeat: no-repeat;
+}
+
+button.left {
+	left:0;
+	padding-left: 9px;
+}
+button.left.arrow {
+	padding-left: 23px;
+	/* background-image: url(../img/backBtn.svg); */
+	background-position: left bottom;
+}
+button.right {
+	right:0;
+	text-align: right;
+	padding-right: 9px;
+}
+button.right.arrow {
+	padding-right: 23px;
+	/* background-image: url(../img/nextBtn.svg); */
+	background-position: right bottom;
+}
+
+h1 {
+	display: block;
+	padding: 0;
+	font-size: 17px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+	overflow: hidden;
+	-webkit-box-flex: 1;
+	   -moz-box-flex: 1;
+	        box-flex: 1;
+	margin: 0 65px;
+	font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
+}
+
+input, textarea {
+	display: block;
+	position: relative;
+	width: 90.6%;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    font-weight: 300;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 6px 4.7% 6px 0;
+    margin-left: 4.7%;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+	background-image: linear-gradient(0deg, rgb(200, 199, 204), rgb(200, 199, 204) 50%, transparent 50%);
+	background-size: 100% 1px;
+	background-repeat: no-repeat;
+	background-position: bottom;
+}
+

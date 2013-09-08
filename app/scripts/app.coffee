@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ProjoApp', ['powerServices'])
+angular.module('ProjoApp', ['hmTouchEvents', 'powerServices', 'menuServices', 'blankServices', 'modelnameServices'])
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
