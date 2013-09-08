@@ -1,56 +1,63 @@
 'use strict'
 
 angular.module('ProjoApp')
-  .controller 'MainCtrl', ($scope, Power, Blank, Menu, Modelname) ->
+  .controller 'MainCtrl', ($scope, $timeout, Power, Blank, Menu, Modelname) ->
     $scope.blank = Blank.query()
     $scope.modelname = Modelname.query()
     $scope.power = Power.query()
 
-    # $scope.init = () ->
+    $scope.update_power = ->
+        $scope.power = Power.query()
+        $scope.modelname = Modelname.query()
+        $scope.blank = Blank.query()
 
-    $scope.power_switch = () ->
+    $scope.update_blank = ->
+        $scope.blank = Blank.query()
+
+    $scope.power_switch = ->
         console.log "Power button pressed"
-        if $scope.disable
-            Power.on()
-            $scope.power = {status: "on"}
-            # $scope.disable = false
-        else
+        if $scope.power?.status? and $scope.power.status == 'on'
             Power.off()
-            $scope.power = {status: "off"}
-            # $scope.disable = true
+            console.log "Power off"
+        else
+            Power.on()
+            console.log "Power on"
+        $timeout($scope.update_power, 10000)
 
-    $scope.blank_switch = () ->
+    $scope.blank_switch = ->
         console.log "Blank button pressed"
-        current = Blank.query()
-        if current.status == "on"
+        if $scope.blank?.status? and $scope.blank.status == 'on'
             Blank.off()
+            console.log "Blank off"
         else
             Blank.on()
+            console.log "Blank on"
+        $timeout($scope.update_blank, 10000)
 
-    $scope.enter = () ->
+    $scope.enter = ->
         console.log "Enter"
         Menu.enter()
 
-    $scope.menuup = () ->
+    $scope.menuup = ->
         console.log "Menu up!"
         Menu.up()
 
-    $scope.menudown = () ->
+    $scope.menudown = ->
         console.log "Menu down!"
         Menu.down()
 
-    $scope.menuleft = () ->
+    $scope.menuleft = ->
         console.log "Menu left!"
         Menu.left()
 
-    $scope.menuright = () ->
+    $scope.menuright = ->
         console.log "Menu right!"
         Menu.right()
 
-    $scope.menu = () ->
+    $scope.menu = ->
         console.log "Menu activated"
         Menu.on()
 
-    $scope.back = () ->
+    $scope.back = ->
         console.log "Menu desactivated"
         Menu.off()
