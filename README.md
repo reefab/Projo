@@ -42,10 +42,15 @@ in conjunction with [CoffeeScript](http://coffeescript.org), [Yeoman](http://yeo
 
 ## Hardware
 
+Serial cable on projector below ceiling...
+
 ![Serial cable on projector below ceiling...](http://farm3.staticflickr.com/2890/9703297446_a1c43fa01d_c.jpg)
 
-![...that goes upstairs to the
-device](http://farm8.staticflickr.com/7391/9703298054_edb5deed06_c.jpg)
+...that goes upstairs to the device
+
+![...that goes upstairs to the device](http://farm8.staticflickr.com/7391/9703298054_edb5deed06_c.jpg)
+
+TTL to RS232 board and wiring
 
 ![TTL to RS232 board and wiring](http://farm4.staticflickr.com/3674/9700287609_4cc2cd62fa_c.jpg)
 
