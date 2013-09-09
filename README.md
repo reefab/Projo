@@ -9,17 +9,17 @@ using my phone.
 My current setup is a [Benq
 W1070](http://www.benq.com/product/projector/w1070/) projector that is linked to
 a [TP-Link TL-MR3020](http://wiki.openwrt.org/toh/tp-link/tl-mr3020) wireless device via
-a RS-232 cable. A 12V trigger cable has been wired between the projector and
+a RS-232 cable. Additionally a 12V trigger cable has been wired between the projector and
 the motorized screen so the screen is now automatically controlled by the
 projector (no more remote either).
 
-This devices delivers a RESTful webservice to interface to the video
+This device delivers a RESTful web-service as an interface to the video
 projector via serial commands (Crestron protocol) and a web app that I use
 on my mobile devices to replace the remote.
 
 I made it to fit my own needs but it should pretty much work out of the box for
 other devices (any \*nix running computer with a RS232 connector) and the
-Crestron protocol seems to be common to multiple brand of AV equipement.
+Crestron protocol seems to be common to multiple brand of AV equipment.
 
 ## Software
 
@@ -30,15 +30,15 @@ Crestron protocol seems to be common to multiple brand of AV equipement.
  * Web App: [AngularJS](http://angularjs.org)
 
 [Bonjour](http://en.wikipedia.org/wiki/Bonjour_%28software%29) is used for
-auto-discovery so I just need to go the `http://projo.local` on my mobile
-devices and optionnaly add the App to the Home Screen.
+auto-discovery so I just need to go the http://projo.local/ url on my mobile
+devices and optionally add the App to the Home Screen.
 
 Once launched there is a few buttons on the top and bottom. The dark area in
 the center is a gesture interface to the menu. Swipe left/right/up/down
-navigate in the menu, a tap select an item, a double tap goes back one level.
+navigate in the menu, a tap select an item. The back button goes back one level.
 
 AngularJS has been selected because I needed an excuse to play with it. It's used
-in conjunction with [CoffeeScript](http://coffeescript.org), [Yeoman](http://yeoman.io), [Grunt](http://gruntjs.com) and [Bower](http://bower.io).
+in conjunction with [CoffeeScript](http://coffeescript.org), [Compass](http://compass-style.org), [Yeoman](http://yeoman.io), [Grunt](http://gruntjs.com) and [Bower](http://bower.io).
 
 ## Hardware
 
@@ -64,14 +64,14 @@ storage, a case and a power supply. And the Raspberry Pi would be overpowered
 for that task.
 
 Only drawback is that the internal storage is just 4MB so a USB drive had to be added for my
-needs.
+needs (a 256MB one would be fine).
 
 The board is a simple [MAX232](http://en.wikipedia.org/wiki/MAX232) based TTL
-to RS232 adaptater. The UART on the router works a 3.3V so the MAX232 converts
-it to signals compatible with other RS232 devices. You can find them on ebay
-for a penance by searching for "TTL to RS232".
+to RS232 adapter. The UART on the router works at 3.3V so the MAX232 converts
+it to signals compatible with other RS232 devices. You can find them on eBay
+for a pittance by searching for "TTL to RS232".
 
-Wiring is simple: 
+Wiring is simple:
 
 * 5V from the router goes to the 5V pin on the board
 * Ground from the router goes to the ground pin on the board
@@ -81,7 +81,7 @@ Wiring is simple:
 And that's pretty much it, drilling the holes in the case took longer.
 
 Here is the pinout on the router: [MR3020 pins](http://wiki.openwrt.org/_detail/media/tp-link_mr3020_top-pcb-gpio-pins.jpg?id=toh%3Atp-link%3Atl-mr3020).
-I did add a 10K pullup resistor between VCC and TX as recommended on the
+I did add a 10K pull-up resistor between VCC and TX as recommended on the
 documentation but I'm not sure if it's necessary.
 
 Do note that you'll need a straight DB9<->DB9 male-female cable (or you'll
@@ -89,5 +89,5 @@ spend a few days wondering why it doesn't work with a null-modem cable).
 
 ## Installation
 
-Here is a detailled [installation guide](INSTALL.md) that covers the setup needed to get it
+Here is a detailed [installation guide](INSTALL.md) that covers the setup needed to get it
 up and running.

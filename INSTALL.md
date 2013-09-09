@@ -1,7 +1,7 @@
 # Installation guide
 
 This is mostly a guide tailored for the TP-Link TL-MR3020 but is also
-applicable to most OpenWRT instalation or more mainstream Linux distributions.
+applicable to most OpenWRT installation or more mainstream Linux distributions.
 
 ## Install OpenWRT on TP-Link TL-MR3020
 
