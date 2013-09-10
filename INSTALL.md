@@ -171,3 +171,44 @@ Enable the service, after disabling the built-in webserver that's hogging the
 
 Sit down, relax, take the batteries out of your remote and switch your
 projector on like a 21st century person.
+
+## Build and Deployement
+
+### Building
+
+You'll need node installed on your local machine beforehand.
+
+    npm -g install # Will install all the dependencies needed for development
+    bower install # Will install the dependencies for runtime
+
+To build:
+
+    grunt build
+
+To launch a server with auto-reloading and livereload
+
+    grunt server
+
+### Deploying
+
+You'll need fabric on your computer beforehand:
+
+    pip install fabric
+
+There is a few issues that needs to be fixed for automatic deployement:
+
+First, ssh key auth: your public key needs to be in
+`/etc/dropbear/authorized_keys`.
+
+Then, as Dropbear doesn't provide a SFTP server, you can use just this part
+from openssh with this very convenient package:
+
+Install `openssh-sftp-server` on the router:
+
+    opkg update
+    opkg install openssh-sftp-server
+
+Now, you just need to do:
+
+    fab projo deploy
+
