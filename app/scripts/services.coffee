@@ -7,11 +7,11 @@ angular.module('powerServices', ['ngResource'])
             on:
                 method: 'PUT'
                 params:
-                    status: 'off'
+                    status: 'on'
             off:
                 method: 'PUT'
                 params:
-                    status: 'on'
+                    status: 'off'
 )
 
 angular.module('blankServices', ['ngResource'])
