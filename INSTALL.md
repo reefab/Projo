@@ -1,7 +1,7 @@
 # Installation guide
 
 This is mostly a guide tailored for the TP-Link TL-MR3020 but is also
-applicable to most OpenWRT instalation or more mainstream Linux distributions.
+applicable to most OpenWRT installation or more mainstream Linux distributions.
 
 ## Install OpenWRT on TP-Link TL-MR3020
 
@@ -149,8 +149,25 @@ Install Flask
 
     easy_install Flask
 
-## Serial port
+Copy and untar the release files in `/srv/projo` for example:
 
-Comment this line in `/etc/inittab` so we can free the serial port for our use instead of a console:
+    mkdir -p /srv/projo/
+    cd /srv/projo
+    tar xfvzp ~/projo-XX.tar.gz
 
-    #ttyATH0::askfirst:/bin/ash --login
+copy the init script:
+
+    cp projo /etc/init.d/
+
+Enable the service, after disabling the built-in webserver that's hogging the
+80 port all for itself:
+
+    /etc/init.d/uhttpd stop
+    /etc/init.d/uhttpd disable
+    /etc/init.d/projo start
+    /etc/init.d/projo enable
+
+## All done!
+
+Sit down, relax, take the batteries out of your remote and switch your
+projector on like a 21st century person.
