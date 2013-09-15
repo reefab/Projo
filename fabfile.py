@@ -21,3 +21,8 @@ def deploy():
     build()
     upload()
     restart_server()
+
+def package():
+    build()
+    version = prompt("Version number?")
+    local('tar cfvzp projo-%s.tar.gz server.py *.md projo static' % version)

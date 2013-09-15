@@ -1,5 +1,7 @@
 # Projo
 
+![Logo](app/imgs/ios-webapp-baseimage.png)
+
 A server and mobile web app I made to control my video projector without a
 remote.
 
@@ -73,7 +75,8 @@ for a pittance by searching for "TTL to RS232".
 
 Wiring is simple:
 
-* 5V from the router goes to the 5V pin on the board
+* 5V from the router goes to the 5V pad on the board (I added hotglue to secure
+  it after soldering)
 * Ground from the router goes to the ground pin on the board
 * RX on the router goes to TX on the board
 * TX on the router goes to RX on the board

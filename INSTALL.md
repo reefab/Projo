@@ -135,7 +135,7 @@ Comment this line in `/etc/inittab` so we can free the serial port for our use i
 
     #ttyATH0::askfirst:/bin/ash --login
 
-## Web server
+## Python
 
 Install required python packages:
 
@@ -144,6 +144,8 @@ Install required python packages:
 Activate the swap partition created previously:
 
     swapon /dev/sda2
+
+## Install
 
 Install Flask 
 
@@ -170,7 +172,7 @@ Enable the service, after disabling the built-in webserver that's hogging the
 ## All done!
 
 Sit down, relax, take the batteries out of your remote and switch your
-projector on like a 21st century person.
+projector on like a 21st century denizen.
 
 ## Build and Deployement
 
