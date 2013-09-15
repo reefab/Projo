@@ -149,15 +149,6 @@ module.exports = (grunt) ->
       options:
         dirs: ["<%= yeoman.dist %>"]
 
-    imagemin:
-      dist:
-        files: [
-          expand: true
-          cwd: "<%= yeoman.app %>/images"
-          src: "{,*/}*.{png,jpg,jpeg}"
-          dest: "<%= yeoman.dist %>/images"
-        ]
-
     svgmin:
       dist:
         files: [
@@ -209,7 +200,7 @@ module.exports = (grunt) ->
           dot: true
           cwd: "<%= yeoman.app %>"
           dest: "<%= yeoman.dist %>"
-          src: ["*.{ico,png,txt}", ".htaccess", "bower_components/**/*", "images/{,*/}*.{gif,webp}", "styles/fonts/*"]
+          src: ["*.{ico,png,txt}", ".htaccess", "bower_components/**/*", "images/{,*/}*.{gif,png,webp}", "styles/fonts/*"]
         ,
           expand: true
           cwd: ".tmp/images"
@@ -226,7 +217,7 @@ module.exports = (grunt) ->
     concurrent:
       server: ["coffee:dist", "compass", "copy:styles"]
       test: ["coffee", "copy:styles"]
-      dist: ["coffee", "compass", "copy:styles", "imagemin", "svgmin", "htmlmin"]
+      dist: ["coffee", "compass", "copy:styles", "svgmin", "htmlmin"]
 
     karma:
       unit:
