@@ -4,7 +4,7 @@
     <button class="left" hm-tap="power_switch()" ng-class="{'active': power.status}">
         <div class="label"><i class="icon-off"></i></div>
     </button>
-    <h1>{{modelname.status}} blah</h1>
+    <h1>{{modelname.status}}</h1>
     <button class="right" hm-tap="blank_switch()" ng-class="{'active': blank.status}">
         <div class="label"><i class="icon-moon"></i></div>
     </button>
@@ -15,30 +15,34 @@
                      hm-swipedown="menu('down')"
                      hm-swipeleft="menu('left')"
                      hm-swiperight="menu('right')"
-                     hm-options="{drag: false, transform: false}"
-                     ng-hide="stereomenu">
+                     hm-options="{drag: false, transform: false}">
 </main>
 
 <main id="stereo" ng-show="stereomenu">
-<h1>{{stereo.status}}</h1>
-<ul>
-    <li><button hm-tap="stereo_change('sbs')">
-        <div class="label">Side By Side</div>
-    </li>
-    <li><button hm-tap="stereo_change('tb')">
-        <div class="label">Top-Bottom</div>
-    </li>
-    <li><button hm-tap="stereo_change('fs')">
-        <div class="label">Frame Packed</div>
-    </li>
-</ul>
+<div id="stereomenu">
+    <ul>
+        <li>Current 3D Mode: {{stereo.status}}</li>
+        <li><button hm-tap="stereo_change('sbs')">
+            <div class="label">Side By Side</div>
+        </li>
+        <li><button hm-tap="stereo_change('tb')">
+            <div class="label">Top-Bottom</div>
+        </li>
+        <li><button hm-tap="stereo_change('fs')">
+            <div class="label">Frame Sequential</div>
+        </li>
+        <li><button hm-tap="stereo_change('off')">
+            <div class="label">Off</div>
+        </li>
+    </ul>
+</div>
 </main>
 
 <footer>
     <button class="left" hm-tap="menu('off')">
         <div class="label"><i class="icon-chevron-left"></i></div>
     </button>
-    <button class="center" ng-model="stereomenu">
+    <button class="center" hm-tap="stereomenutoggle()">
         <div class="label">3D</div>
     </button>
     <button class="right" hm-tap="menu('on')">

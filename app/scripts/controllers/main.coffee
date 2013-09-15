@@ -20,6 +20,9 @@ angular.module('ProjoApp')
     $scope.update_stereo = ->
         $scope.stereo = Stereo.query()
 
+    $scope.stereomenutoggle = ->
+        $scope.stereomenu =  not $scope.stereomenu
+
     $scope.power_switch = ->
         console.log "Power button pressed"
         if $scope.power?.status? and $scope.power.status
@@ -29,7 +32,7 @@ angular.module('ProjoApp')
             Power.on()
             console.log "Power on"
             # big 20sec delay needed before the projector reacts when turning on
-            $timeout($scope.update_power, 20000)
+            $timeout $scope.update_power, 20000
 
     $scope.blank_switch = ->
         console.log "Blank button pressed"
@@ -39,7 +42,7 @@ angular.module('ProjoApp')
         else
             Blank.on()
             console.log "Blank on"
-        $timeout($scope.update_blank, 2000)
+        $timeout $scope.update_blank, 2000
 
     $scope.menu = (key) ->
         console.log "Menu command #{key}"
@@ -47,5 +50,5 @@ angular.module('ProjoApp')
 
     $scope.stereo_change = (status) ->
         console.log "3d command #{status}"
-        Stereo.change(status)
-        $timeout($scope.update_stereo, 2000)
+        Stereo.change status:status
+        $timeout $scope.update_stereo, 2000
