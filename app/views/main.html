@@ -38,11 +38,13 @@
 </div>
 </main>
 
+
 <footer>
     <button class="left" hm-tap="menu('off')">
         <div class="label"><i class="icon-chevron-left"></i></div>
     </button>
-    <button class="center" hm-tap="stereomenutoggle()">
+    <button class="center" hm-tap="stereomenutoggle()" ng-class="{'active': stereomenu}">
+ 
         <div class="label">3D</div>
     </button>
     <button class="right" hm-tap="menu('on')">
