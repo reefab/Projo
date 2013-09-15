@@ -95,13 +95,11 @@ def modelname(status=None):
 def threedee(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["3d"]["status"])
-        return jsonify({"status": answer.lower() in COMMANDS["3d"]})
+        return jsonify({"status": answer})
     else:
         if status in COMMANDS["3d"]:
             write_serial(COMMANDS["3d"][status])
-            if answer == "FS":
-                result = "Frame Sequential"
-            elif answer == "TB":
+            if answer == "TB":
                 result = "Top-Bottom"
             elif answer == "SBS":
                 result = "Side-by-Side"
