@@ -48,7 +48,7 @@ def index():
 def power(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["power"]["status"])
-        return jsonify({"status": answer.lower()})
+        return jsonify({"status": answer.lower() == "on"})
     else:
         if status == 'on':
             write_serial(COMMANDS["power"]["on"])
@@ -62,7 +62,7 @@ def power(status=None):
 def blank(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["blank"]["status"])
-        return jsonify({"status": answer.lower()})
+        return jsonify({"status": answer.lower() == "on"})
     else:
         if status == 'on':
             write_serial(COMMANDS["blank"]["on"])

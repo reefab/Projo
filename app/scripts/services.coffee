@@ -1,8 +1,8 @@
 angular.module('powerServices', ['ngResource'])
     .factory('Power', ($resource) ->
-        $resource '/power/:status', 
-            {}, 
-            query: 
+        $resource '/power/:status',
+            {},
+            query:
                 method: 'GET'
             on:
                 method: 'PUT'
@@ -16,9 +16,9 @@ angular.module('powerServices', ['ngResource'])
 
 angular.module('blankServices', ['ngResource'])
     .factory('Blank', ($resource) ->
-        $resource '/blank/:status', 
-            {}, 
-            query: 
+        $resource '/blank/:status',
+            {},
+            query:
                 method: 'GET'
             on:
                 method: 'PUT'
@@ -32,17 +32,17 @@ angular.module('blankServices', ['ngResource'])
 
 angular.module('modelnameServices', ['ngResource'])
     .factory('Modelname', ($resource) ->
-        $resource '/modelname', 
-            {}, 
-            query: 
+        $resource '/modelname',
+            {},
+            query:
                 method: 'GET'
 )
 
 
 angular.module('menuServices', ['ngResource'])
     .factory('Menu', ($resource) ->
-        $resource '/menu/:status', 
-            {}, 
+        $resource '/menu/:status',
+            {},
             on:
                 method: 'PUT'
                 params:

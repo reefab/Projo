@@ -16,48 +16,41 @@ angular.module('ProjoApp')
 
     $scope.power_switch = ->
         console.log "Power button pressed"
-        if $scope.power?.status? and $scope.power.status == 'on'
+        if $scope.power?.status? and $scope.power.status
             Power.off()
             console.log "Power off"
         else
             Power.on()
             console.log "Power on"
-        $timeout($scope.update_power, 10000)
+            # big 20sec delay needed before the projector reacts when turning on
+            $timeout($scope.update_power, 20000)
 
     $scope.blank_switch = ->
         console.log "Blank button pressed"
-        if $scope.blank?.status? and $scope.blank.status == 'on'
+        if $scope.blank?.status? and $scope.blank.status
             Blank.off()
             console.log "Blank off"
         else
             Blank.on()
             console.log "Blank on"
-        $timeout($scope.update_blank, 10000)
+        $timeout($scope.update_blank, 2000)
 
-    $scope.enter = ->
-        console.log "Enter"
-        Menu.enter()
-
-    $scope.menuup = ->
-        console.log "Menu up!"
-        Menu.up()
-
-    $scope.menudown = ->
-        console.log "Menu down!"
-        Menu.down()
-
-    $scope.menuleft = ->
-        console.log "Menu left!"
-        Menu.left()
-
-    $scope.menuright = ->
-        console.log "Menu right!"
-        Menu.right()
-
-    $scope.menu = ->
-        console.log "Menu activated"
-        Menu.on()
-
-    $scope.back = ->
-        console.log "Menu desactivated"
-        Menu.off()
+    $scope.menu = (key) ->
+        console.log "Menu command #{key}"
+        switch key
+            when "enter"
+                Menu.enter()
+            when "up"
+                Menu.up()
+            when "down"
+                Menu.down()
+            when "left"
+                Menu.left()
+            when "right"
+                Menu.right()
+            when "on"
+                Menu.on()
+            when "back"
+                Menu.off()
+            else
+                console.log "Menu command unrecognized"

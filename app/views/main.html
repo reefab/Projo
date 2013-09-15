@@ -1,23 +1,23 @@
 <div data-ng-controller="MainCtrl" data-ng-init="init()"></div>
 
 <header>
-    <button class="left" hm-tap="power_switch()" ng-class="{bold: power.status=='on'}">
+    <button class="left" hm-tap="power_switch()" ng-class="{bold: power.status}">
         <div class="label"><i class="icon-off"></i></div>
     </button>
     <h1>{{modelname.status}}</h1>
-    <button class="right" hm-tap="blank_switch()" ng-disabled-blah="(power.status=='on')" ng-class="{bold: blank.status=='on'}">
+    <button class="right" hm-tap="blank_switch()" ng-class="{bold: blank.status}">
         <div class="label"><i class="icon-moon"></i></div>
     </button>
 </header>
 
-<div id="toucharea" hm-tap="enter()" hm-swipeup="menuup()" hm-swipedown="menudown()" hm-swipeleft="menuleft()" hm-swiperight="menuright()" hm-options="{drag: false, transform: false}">
-</div>
+<main id="toucharea" hm-tap="menu('enter')" hm-swipeup="menu('up')" hm-swipedown="menu('down')" hm-swipeleft="menu('left')" hm-swiperight="menu('right')" hm-options="{drag: false, transform: false}">
+</main>
 
 <footer>
-    <button class="left" hm-tap="back()">
+    <button class="left" hm-tap="menu('back')">
         <div class="label"><i class="icon-chevron-left"></i></div>
     </button>
-    <button class="right" hm-tap="menu()">
+    <button class="right" hm-tap="menu('on')">
         <div class="label"><i class="icon-list-alt"></i></div>
     </button>
 </footer>
