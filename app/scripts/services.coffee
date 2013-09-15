@@ -46,3 +46,13 @@ angular.module('menuServices', ['ngResource'])
             send:
                 method: 'PUT'
 )
+
+angular.module('stereoServices', ['ngResource'])
+    .factory('Stereo', ($resource) ->
+        $resource '/3d/:status',
+            {status: '@status'},
+            query:
+                method: 'GET'
+            change:
+                method: 'PUT'
+)

@@ -11,7 +11,7 @@ COMMANDS = {
         "power": {"on": "POW=ON", "off": "POW=OFF", "status": "POW=?"},
         "blank": {"on": "BLANK=ON", "off": "BLANK=OFF", "status": "BLANK=?"},
         "modelname": {"status": "MODELNAME=?"},
-        "menu":  {
+        "menu": {
                     "on": "MENU=ON",
                     "off": "MENU=OFF",
                     "up": "UP",
@@ -19,7 +19,14 @@ COMMANDS = {
                     "right": "RIGHT",
                     "left": "LEFT",
                     "enter": "ENTER"
-                }
+                },
+        "3d": {
+                "status": "3D=?",
+                "sbs": "3D=SBS",
+                "tb": "3D=TB",
+                "fs": "3D=FS",
+                "off": "3D=OFF"
+              }
 }
 
 app = Flask(__name__, static_url_path='')
@@ -82,6 +89,25 @@ def modelname(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["modelname"]['status'])
         return jsonify({"status": answer.lower()})
+
+@app.route('/3d', methods=['GET'])
+@app.route('/3d/<status>', methods=['PUT'])
+def threedee(status=None):
+    if request.method == 'GET':
+        answer = read_serial(COMMANDS["3d"]["status"])
+        return jsonify({"status": answer.lower() in COMMANDS["3d"]})
+    else:
+        if status in COMMANDS["3d"]:
+            write_serial(COMMANDS["3d"][status])
+            if answer == "FS":
+                result = "Frame Sequential"
+            elif answer == "TB":
+                result = "Top-Bottom"
+            elif answer == "SBS":
+                result = "Side-by-Side"
+            elif answer == "OFF":
+                result = "None"
+            return jsonify({"status": result})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)

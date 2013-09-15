@@ -1,18 +1,24 @@
 'use strict'
 
 angular.module('ProjoApp')
-  .controller 'MainCtrl', ($scope, $timeout, Power, Blank, Menu, Modelname) ->
+  .controller 'MainCtrl', ($scope, $timeout, Power, Blank, Menu, Modelname, Stereo) ->
     $scope.blank = Blank.query()
     $scope.modelname = Modelname.query()
     $scope.power = Power.query()
+    $scope.stereo = Stereo.query()
+    $scope.stereomenu = false
 
     $scope.update_power = ->
         $scope.power = Power.query()
         $scope.modelname = Modelname.query()
         $scope.blank = Blank.query()
+        $scope.stereo = Stereo.query()
 
     $scope.update_blank = ->
         $scope.blank = Blank.query()
+
+    $scope.update_stereo = ->
+        $scope.stereo = Stereo.query()
 
     $scope.power_switch = ->
         console.log "Power button pressed"
@@ -38,3 +44,8 @@ angular.module('ProjoApp')
     $scope.menu = (key) ->
         console.log "Menu command #{key}"
         Menu.send status:key
+
+    $scope.stereo_change = (status) ->
+        console.log "3d command #{status}"
+        Stereo.change(status)
+        $timeout($scope.update_stereo, 2000)

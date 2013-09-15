@@ -112,6 +112,13 @@ button.right {
 	padding-right: 9px;
 }
 
+button.center {
+	right: 0;
+	left: 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
 h1 {
 	display: block;
 	padding: 0;
