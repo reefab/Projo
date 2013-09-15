@@ -37,20 +37,4 @@ angular.module('ProjoApp')
 
     $scope.menu = (key) ->
         console.log "Menu command #{key}"
-        switch key
-            when "enter"
-                Menu.enter()
-            when "up"
-                Menu.up()
-            when "down"
-                Menu.down()
-            when "left"
-                Menu.left()
-            when "right"
-                Menu.right()
-            when "on"
-                Menu.on()
-            when "back"
-                Menu.off()
-            else
-                console.log "Menu command unrecognized"
+        Menu.send status:key

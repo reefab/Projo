@@ -42,33 +42,7 @@ angular.module('modelnameServices', ['ngResource'])
 angular.module('menuServices', ['ngResource'])
     .factory('Menu', ($resource) ->
         $resource '/menu/:status',
-            {},
-            on:
+            {status: '@status'},
+            send:
                 method: 'PUT'
-                params:
-                    status: 'on'
-            off:
-                method: 'PUT'
-                params:
-                    status: 'off'
-            left:
-                method: 'PUT'
-                params:
-                    status: 'left'
-            right:
-                method: 'PUT'
-                params:
-                    status: 'right'
-            up:
-                method: 'PUT'
-                params:
-                    status: 'up'
-            down:
-                method: 'PUT'
-                params:
-                    status: 'down'
-            enter:
-                method: 'PUT'
-                params:
-                    status: 'enter'
 )
