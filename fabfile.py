@@ -14,7 +14,8 @@ def upload():
     put('server.py', '/srv/projo/', mirror_local_mode=True)
 
 def restart_server():
-    run('/etc/init.d/projo restart')
+    run('/etc/init.d/projo stop')
+    run('/etc/init.d/projo start')
 
 def deploy():
     build()
