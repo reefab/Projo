@@ -31,18 +31,15 @@ body {
     position: absolute;
 }
 
-#stereo {
-    position: relative;
-}
-
 #stereomenu {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    width: 40%;
-    height: 40%;
+    width: 60%;
+    height: auto;
+    display: table;
     margin: auto;
     z-index: 20 !important;
     ul {
@@ -53,7 +50,8 @@ body {
         background-size: 100% 1px;
         background-repeat: no-repeat;
         background-position: bottom;
-        padding: 0;
+        padding-left: 0;
+        border-radius: 15px;
         li {
             padding: 10px 0 10px 0;
         }
