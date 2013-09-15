@@ -3,6 +3,7 @@ $FontAwesomePath: "../bower_components/font-awesome/font/" ;
 @import "../bower_components/font-awesome/scss/font-awesome.scss";
 
 $main_color: #9a42ff;
+$active_color: #42a7ff;
 
 body {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -91,8 +92,9 @@ footer button {
 	bottom: 0;
 }
 
-button.bold {
-	font-weight: 500;
+button.active {
+	font-weight: 600;
+	color: $active_color;
 }
 
 button.disabled {

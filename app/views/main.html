@@ -1,11 +1,11 @@
 <div data-ng-controller="MainCtrl" data-ng-init="init()"></div>
 
 <header>
-    <button class="left" hm-tap="power_switch()" ng-class="{bold: power.status}">
+    <button class="left" hm-tap="power_switch()" ng-class="{'active': power.status}">
         <div class="label"><i class="icon-off"></i></div>
     </button>
     <h1>{{modelname.status}}</h1>
-    <button class="right" hm-tap="blank_switch()" ng-class="{bold: blank.status}">
+    <button class="right" hm-tap="blank_switch()" ng-class="{'active': blank.status}">
         <div class="label"><i class="icon-moon"></i></div>
     </button>
 </header>
