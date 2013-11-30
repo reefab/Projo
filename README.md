@@ -1,6 +1,6 @@
 # Projo
 
-![Logo](app/images/ios-webapp-baseimage.png)
+![Logo](ios-webapp-baseimage.png)
 
 A server and mobile web app I made to control my video projector without a
 remote.
