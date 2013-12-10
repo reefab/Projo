@@ -18,7 +18,7 @@ module.exports = (grunt) ->
   # configurable paths
   yeomanConfig =
     app: "app"
-    dist: "static"
+    dist: "luci-projo/htdocs/projo"
 
   try
     yeomanConfig.app = require("./bower.json").appPath or yeomanConfig.app
