@@ -1,58 +1,58 @@
-angular.module('powerServices', ['ngResource'])
-    .factory('Power', ($resource) ->
-        $resource '/power/:status',
+angular.module('powerServices', ['ngResource', 'configuration'])
+    .factory('Power', ['$resource', 'URI_ROOT', ($resource, URI_ROOT) ->
+        $resource "#{URI_ROOT}/power/:status",
             {},
             query:
                 method: 'GET'
             on:
-                method: 'PUT'
+                method: 'POST'
                 params:
                     status: 'on'
             off:
-                method: 'PUT'
+                method: 'POST'
                 params:
                     status: 'off'
-)
+])
 
-angular.module('blankServices', ['ngResource'])
-    .factory('Blank', ($resource) ->
-        $resource '/blank/:status',
+angular.module('blankServices', ['ngResource', 'configuration'])
+    .factory('Blank', ['$resource', 'URI_ROOT', ($resource, URI_ROOT) ->
+        $resource "#{URI_ROOT}/blank/:status",
             {},
             query:
                 method: 'GET'
             on:
-                method: 'PUT'
+                method: 'POST'
                 params:
                     status: 'on'
             off:
-                method: 'PUT'
+                method: 'POST'
                 params:
                     status: 'off'
-)
+])
 
-angular.module('modelnameServices', ['ngResource'])
-    .factory('Modelname', ($resource) ->
-        $resource '/modelname',
+angular.module('modelnameServices', ['ngResource', 'configuration'])
+    .factory('Modelname', ['$resource', 'URI_ROOT', ($resource, URI_ROOT) ->
+        $resource "#{URI_ROOT}/modelname",
             {},
             query:
                 method: 'GET'
-)
+])
 
 
-angular.module('menuServices', ['ngResource'])
-    .factory('Menu', ($resource) ->
-        $resource '/menu/:status',
+angular.module('menuServices', ['ngResource', 'configuration'])
+    .factory('Menu', ['$resource', 'URI_ROOT', ($resource, URI_ROOT) ->
+        $resource "#{URI_ROOT}/menu/:status",
             {status: '@status'},
             send:
-                method: 'PUT'
-)
+                method: 'POST'
+])
 
-angular.module('stereoServices', ['ngResource'])
-    .factory('Stereo', ($resource) ->
-        $resource '/3d/:status',
+angular.module('stereoServices', ['ngResource', 'configuration'])
+    .factory('Stereo', ['$resource', 'URI_ROOT', ($resource, URI_ROOT) ->
+        $resource "#{URI_ROOT}/3d/:status",
             {status: '@status'},
             query:
                 method: 'GET'
             change:
-                method: 'PUT'
-)
+                method: 'POST'
+])
