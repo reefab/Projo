@@ -51,7 +51,7 @@ def index():
     return send_file("static/index.html")
 
 @app.route('/power', methods=['GET'])
-@app.route('/power/<status>', methods=['PUT'])
+@app.route('/power/<status>', methods=['PUT', 'POST'])
 def power(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["power"]["status"])
@@ -65,7 +65,7 @@ def power(status=None):
             return jsonify({"status": "ok"})
 
 @app.route('/blank', methods=['GET'])
-@app.route('/blank/<status>', methods=['PUT'])
+@app.route('/blank/<status>', methods=['PUT', 'POST'])
 def blank(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["blank"]["status"])
@@ -78,7 +78,7 @@ def blank(status=None):
             write_serial(COMMANDS["blank"]["off"])
             return jsonify({"status": "ok"})
 
-@app.route('/menu/<action>', methods=['PUT'])
+@app.route('/menu/<action>', methods=['PUT', 'POST'])
 def menu(action=None):
     if action in COMMANDS["menu"]:
         write_serial(COMMANDS["menu"][action])
@@ -91,7 +91,7 @@ def modelname(status=None):
         return jsonify({"status": answer.lower()})
 
 @app.route('/3d', methods=['GET'])
-@app.route('/3d/<status>', methods=['PUT'])
+@app.route('/3d/<status>', methods=['PUT', 'POST'])
 def threedee(status=None):
     if request.method == 'GET':
         answer = read_serial(COMMANDS["3d"]["status"])
@@ -99,11 +99,11 @@ def threedee(status=None):
     else:
         if status in COMMANDS["3d"]:
             write_serial(COMMANDS["3d"][status])
-            if answer == "TB":
+            if status == "TB":
                 result = "Top-Bottom"
-            elif answer == "SBS":
+            elif status == "SBS":
                 result = "Side-by-Side"
-            elif answer == "OFF":
+            elif status == "OFF":
                 result = "None"
             return jsonify({"status": result})
 

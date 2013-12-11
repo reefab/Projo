@@ -30,19 +30,31 @@ function index()
     entry({"projo", "power"}, call("power")).dependent=false
     entry({"projo", "power", "on"}, call("power")).dependent=false
     entry({"projo", "power", "off"}, call("power")).dependent=false
+    entry({"projo", "blank"}, call("blank")).dependent=false
+    entry({"projo", "blank", "on"}, call("blank")).dependent=false
+    entry({"projo", "blank", "off"}, call("blank")).dependent=false
+    entry({"projo", "menu", "on"}, call("menu")).dependent=false
+    entry({"projo", "menu", "off"}, call("menu")).dependent=false
+    entry({"projo", "menu", "up"}, call("menu")).dependent=false
+    entry({"projo", "menu", "down"}, call("menu")).dependent=false
+    entry({"projo", "menu", "right"}, call("menu")).dependent=false
+    entry({"projo", "menu", "left"}, call("menu")).dependent=false
+    entry({"projo", "menu", "enter"}, call("menu")).dependent=false
+    entry({"projo", "modelname"}, call("modelname")).dependent=false
+    entry({"projo", "3d"}, call("threedee")).dependent=false
+    entry({"projo", "3d", "sbs"}, call("threedee")).dependent=false
+    entry({"projo", "3d", "tb"}, call("threedee")).dependent=false
+    entry({"projo", "3d", "fs"}, call("threedee")).dependent=false
+    entry({"projo", "3d", "off"}, call("threedee")).dependent=false
 end
 
 function power()
-    --luci.http.prepare_content("application/json")
-    --luci.http.write_json({["status"]= "ok"})
-
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands.power.status)
         luci.http.write_json({["status"]= result:lower()})
     else
         local status = get_node()
-        --luci.http.write_json({["status"]= status})
         if commands.power[status] then
             write_serial(commands.power[status])
             luci.http.write_json({["status"]= "ok"})
@@ -50,6 +62,56 @@ function power()
     end
 end
 
+function blank()
+    luci.http.prepare_content("application/json")
+    if get_method() == 'GET' then
+        local result = read_serial(commands.blank.status)
+        luci.http.write_json({["status"]= result:lower()})
+    else
+        local status = get_node()
+        if commands.blank[status] then
+            write_serial(commands.blank[status])
+            luci.http.write_json({["status"]= "ok"})
+        end
+    end
+end
+
+function menu()
+    luci.http.prepare_content("application/json")
+    local status = get_node()
+    if commands.blank[status] then
+        write_serial(commands.menu[status])
+        luci.http.write_json({["status"]= "ok"})
+    end
+end
+
+function modelname()
+    luci.http.prepare_content("application/json")
+    local result = read_serial(commands.modelname.status)
+    luci.http.write_json({["status"]= result:lower()})
+end
+
+function threedee()
+    luci.http.prepare_content("application/json")
+    if get_method() == 'GET' then
+        local result = read_serial(commands["3d"].status)
+        luci.http.write_json({["status"]= result})
+    else
+        local status = get_node()
+        if commands.blank[status] then
+            local result = "None"
+            write_serial(commands["3d"][status])
+            if status == "TB" then
+                result = "Top-Bottom"
+            elseif status == "SBS" then
+                result = "Side-by-Side"
+            elseif status == "OFF" then
+                result = "None"
+            end
+            luci.http.write_json({["status"]= result})
+        end
+    end
+end
 
 function read_serial(command)
     require("nixio.util")
