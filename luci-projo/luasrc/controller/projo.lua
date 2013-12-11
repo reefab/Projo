@@ -27,9 +27,9 @@ commands = {
 }
 
 function index()
-    local page = entry({"projo", "power"}, call("power"))
-    page.leaf = false
-    page.dependant = false
+    entry({"projo", "power"}, call("power")).dependent=false
+    entry({"projo", "power", "on"}, call("power")).dependent=false
+    entry({"projo", "power", "off"}, call("power")).dependent=false
 end
 
 function power()
@@ -42,11 +42,11 @@ function power()
         luci.http.write_json({["status"]= result:lower()})
     else
         local status = get_node()
-        luci.http.write_json({["status"]= status})
-        --if commands.power[status] then
-        --    write_serial(commands.power[status])
-        --    luci.http.write_json({["status"]= "ok"})
-        --end
+        --luci.http.write_json({["status"]= status})
+        if commands.power[status] then
+            write_serial(commands.power[status])
+            luci.http.write_json({["status"]= "ok"})
+        end
     end
 end
 
