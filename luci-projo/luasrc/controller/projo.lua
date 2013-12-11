@@ -1,12 +1,10 @@
-module("luci.controller.luci-projo.rest", package.seeall)
+module("luci.controller.projo", package.seeall)
 
-require "nixio.util"
-local nixio = require "nixio"
 
-local host = "192.168.1.3"
-local port = 2323
+host = "192.168.1.3"
+port = 2323
 
-local commands = {
+commands = {
         ["power"]= {["on"]= "POW=ON", ["off"]= "POW=OFF", ["status"]= "POW=?"},
         ["blank"]= {["on"]= "BLANK=ON", ["off"]= "BLANK=OFF", ["status"]= "BLANK=?"},
         ["modelname"]= {["status"]= "MODELNAME=?"},
@@ -28,7 +26,34 @@ local commands = {
               }
 }
 
+function index()
+    local page = entry({"projo", "power"}, call("power"))
+    page.leaf = false
+    page.dependant = false
+end
+
+function power()
+    --luci.http.prepare_content("application/json")
+    --luci.http.write_json({["status"]= "ok"})
+
+    luci.http.prepare_content("application/json")
+    if get_method() == 'GET' then
+        local result = read_serial(commands.power.status)
+        luci.http.write_json({["status"]= result:lower()})
+    else
+        local status = get_node()
+        luci.http.write_json({["status"]= status})
+        --if commands.power[status] then
+        --    write_serial(commands.power[status])
+        --    luci.http.write_json({["status"]= "ok"})
+        --end
+    end
+end
+
+
 function read_serial(command)
+    require("nixio.util")
+    local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
         return nil, code, msg
@@ -42,9 +67,12 @@ function read_serial(command)
     line = linesrc()
     local key, value = line:match("(%w+)=(%w+)")
     sock:close()
+    return value
 end
 
 function write_serial(command)
+    require("nixio.util")
+    local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
         return nil, code, msg
@@ -61,22 +89,4 @@ end
 function get_node()
     local uri = luci.http.getenv("REQUEST_URI")
     return uri:match("(%w+)$")
-end
-
-function index()
-    entry({"projo", "power"}, call("power_state")).dependent=false
-end
-
-function power_state()
-    luci.http.prepare_content("application/json")
-    if get_method() == 'GET' then
-        local result = read_serial(command.power.status)
-        luci.http.write_json({["status"]= result:lower()})
-    else
-        local status = get_node()
-        if commands.power[status] then
-            write_serial(command.power[status])
-            luci.http.write_json({["status"]= "ok"})
-        end
-    end
 end
