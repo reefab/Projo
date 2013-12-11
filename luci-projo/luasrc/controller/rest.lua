@@ -1,3 +1,5 @@
+module("luci.controller.luci-projo.rest", package.seeall)
+
 require "nixio.util"
 local nixio = require "nixio"
 
@@ -26,15 +28,12 @@ local commands = {
               }
 }
 
-
-module("luci.controller.projo.rest", package.seeall)
-
 function read_serial(command)
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
         return nil, code, msg
     end
-    ser_command = string.format("\r*%s#\r", command)
+    local ser_command = string.format("\r*%s#\r", command)
     sock:sendall(ser_command)
 
     local linesrc = sock:linesource()
@@ -50,17 +49,34 @@ function write_serial(command)
     if not sock then
         return nil, code, msg
     end
-    ser_command = string.format("\r*%s#\r", command)
+    local ser_command = string.format("\r*%s#\r", command)
     sock:sendall(ser_command)
     sock:close()
 end
 
-function index()
-    entry({"projo", "power"}, call("power_status")).dependent=false
+function get_method()
+    return luci.http.getenv("REQUEST_METHOD")
 end
 
-function power_status()
-    read_serial(command.power.status)
+function get_node()
+    local uri = luci.http.getenv("REQUEST_URI")
+    return uri:match("(%w+)$")
+end
+
+function index()
+    entry({"projo", "power"}, call("power_state")).dependent=false
+end
+
+function power_state()
     luci.http.prepare_content("application/json")
-    luci.http.write_json({["status"]= true})
+    if get_method() == 'GET' then
+        local result = read_serial(command.power.status)
+        luci.http.write_json({["status"]= result:lower()})
+    else
+        local status = get_node()
+        if commands.power[status] then
+            write_serial(command.power[status])
+            luci.http.write_json({["status"]= "ok"})
+        end
+    end
 end
