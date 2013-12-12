@@ -87,7 +87,8 @@ end
 
 function modelname()
     luci.http.prepare_content("application/json")
-    local result = read_serial(commands.modelname.status)
+    local result = ''
+    result = read_serial(commands.modelname.status)
     luci.http.write_json({["status"]= result:lower()})
 end
 

@@ -35,7 +35,7 @@ is available in it's own branch.
  * Web App: [AngularJS](http://angularjs.org)
 
 [Bonjour](http://en.wikipedia.org/wiki/Bonjour_%28software%29) is used for
-auto-discovery so I just need to go the http://projo.local/ url on my mobile
+auto-discovery so I just need to go the http://projo.local/projo url on my mobile
 devices and optionally add the App to the Home Screen.
 
 Once launched there is a few buttons on the top and bottom. The dark area in
@@ -44,6 +44,10 @@ navigate in the menu, a tap select an item. The back button goes back one level.
 
 AngularJS has been selected because I needed an excuse to play with it. It's used
 in conjunction with [CoffeeScript](http://coffeescript.org), [Compass](http://compass-style.org), [Yeoman](http://yeoman.io), [Grunt](http://gruntjs.com) and [Bower](http://bower.io).
+
+The server side part is now in Lua (from Python) to drastically reduce the
+footprint needed. It went from ~150M to ~150K. It's also now packaged as a
+native Opkg package.
 
 ## Hardware
 
@@ -61,12 +65,10 @@ TTL to RS232 board and wiring
 
 The base block is a TP-Link TL-MR3020 router. I selected it for the following
 reasons: it's cheap, runs OpenWRT, has UART pins readily accessible, enough
-(albeit barely)
-room inside to fit the serial board and did I mention it's cheap? 
+(albeit barely) room inside to fit the serial board and did I mention it's cheap? 
 
 It's comparable in price to the Raspberry Pi but comes with wifi, internal
-storage, a case and a power supply. And the Raspberry Pi would be overpowered
-for that task.
+storage (incredibly small), a case and a power supply.
 
 The board is a simple [MAX232](http://en.wikipedia.org/wiki/MAX232) based TTL
 to RS232 adapter. The UART on the router works at 3.3V so the MAX232 converts
@@ -93,5 +95,7 @@ that it happened to me...).
 
 ## Installation
 
-Here is a detailed [installation guide](INSTALL.md) that covers the setup needed to get it
-up and running.
+An [opkg](http://wiki.openwrt.org/doc/techref/opkg) file is provided for easy
+installation and there is a detailed [installation guide](INSTALL.md) that 
+covers the setup needed to get it up and running (mostly base OpenWRT setup
+information).
