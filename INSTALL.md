@@ -98,39 +98,22 @@ Comment this line in `/etc/inittab` so we can free the serial port for our use i
 
     #ttyATH0::askfirst:/bin/ash --login
 
-## Python
-
-Install required python packages:
-
-    opkg install distribute python-openssl python pyserial
-
-Activate the swap partition created previously:
-
-    swapon /dev/sda2
-
 ## Install
 
-Install Flask 
+Copy the package file: `luci-projo_<X>_ar71xx.ipk` to your device and install
+it.
 
-    easy_install Flask
+    opkg install luci-projo_0.9-<X>_ar71xx.ipk
 
-Copy and untar the release files in `/srv/projo` for example:
+This will install the dependencies.
 
-    mkdir -p /srv/projo/
-    cd /srv/projo
-    tar xfvzp ~/projo-XX.tar.gz
+Copy the ser2net `ser2net.conf.example` config file to `/etc/ser2net.conf`.
+Copy the ser2net `ser2net.init` init script to `/etc/init.d/ser2net`.
 
-copy the init script:
+Activate the init script:
 
-    cp projo /etc/init.d/
-
-Enable the service, after disabling the built-in webserver that's hogging the
-80 port all for itself:
-
-    /etc/init.d/uhttpd stop
-    /etc/init.d/uhttpd disable
-    /etc/init.d/projo start
-    /etc/init.d/projo enable
+    /etc/init.d/ser2net start
+    /etc/init.d/ser2net enable
 
 ## All done!
 
@@ -153,27 +136,3 @@ To build:
 To launch a server with auto-reloading and livereload
 
     grunt server
-
-### Deploying
-
-You'll need fabric on your computer beforehand:
-
-    pip install fabric
-
-There is a few issues that needs to be fixed for automatic deployement:
-
-First, ssh key auth: your public key needs to be in
-`/etc/dropbear/authorized_keys`.
-
-Then, as Dropbear doesn't provide a SFTP server, you can use just this part
-from openssh with this very convenient package:
-
-Install `openssh-sftp-server` on the router:
-
-    opkg update
-    opkg install openssh-sftp-server
-
-Now, you just need to do:
-
-    fab projo deploy
-
