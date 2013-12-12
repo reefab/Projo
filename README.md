@@ -15,7 +15,7 @@ on my mobile devices to replace the remote.
 This version is made for Raspberry Pi and any \*nix running computer with a RS232 connector) and the
 Crestron protocol seems to be common to multiple brand of AV equipment.
 
-A version specially made for OpenWRT devices is avaible in the default branch.
+A version specially made for OpenWRT devices is available in the default branch.
 
 ## Software
 
@@ -56,13 +56,12 @@ that it happened to me...).
 
 Here is the pinout of the Raspberry Pi: [GPIO Pinout](http://elinux.org/RPi_Low-level_peripherals#General_Purpose_Input.2FOutput_.28GPIO.29).
 
-* 5V from the GPIO goes to the 5V pin on the board (I added hotglue to secure
-  it after soldering)
+* 5V from the GPIO goes to the 5V pin on the board
 * Ground from the GPIO goes to the ground pin on the board
 * RX on the GPIO goes to TX on the board
 * TX on the GPIO goes to RX on the board
 
-If that seems dauting, look at the second option.
+If that seems daunting, look at the second option.
 
 ### Using a usb-serial adapter
 
