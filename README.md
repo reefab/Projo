@@ -77,7 +77,7 @@ for a pittance by searching for "TTL to RS232".
 
 Wiring is simple:
 
-* 5V from the router goes to the 5V pad on the board (I added hotglue to secure
+* 5V from the router goes to the 5V pad on the board (I added hot-glue to secure
   it after soldering)
 * Ground from the router goes to the ground pin on the board
 * RX on the router goes to TX on the board

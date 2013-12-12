@@ -120,7 +120,7 @@ Activate the init script:
 Sit down, relax, take the batteries out of your remote and switch your
 projector on like a 21st century denizen.
 
-## Build and Deployement
+## Build and Deployment
 
 ### Building
 
