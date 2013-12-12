@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, send_file
 import serial
 import re
 
-DEVICE = '/dev/ttyATH0'
+DEVICE = '/dev/ttyAMA0'
 
 SPEED = 115200
 

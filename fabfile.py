@@ -25,4 +25,4 @@ def deploy():
 def package():
     build()
     version = prompt("Version number?")
-    local('tar cfvzp projo-%s.tar.gz server.py *.md projo static' % version)
+    local('tar cfvzp projo-%s.tar.gz server.py *.md projo.init static' % version)
