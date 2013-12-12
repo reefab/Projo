@@ -6,7 +6,7 @@ A server and mobile web app I made to control my video projector without a
 remote.
 
 I can now switch the projector on/off, navigate the menu and blank the screen
-using my phone.
+using my phone (or other web-enabled device).
 
 My current setup is a [Benq
 W1070](http://www.benq.com/product/projector/w1070/) projector that is linked to
@@ -23,12 +23,15 @@ I made it to fit my own needs but it should pretty much work out of the box for
 other devices (any \*nix running computer with a RS232 connector) and the
 Crestron protocol seems to be common to multiple brand of AV equipment.
 
+A version made for the Raspberry Pi (or other "generic" \*nix for that matter)
+is available in it's own branch.
+
 ## Software
 
 ![Screenshot](screenshot.png)
 
  * OS: [OpenWRT](https://openwrt.org)
- * Web Server: [Flask](http://flask.pocoo.org)
+ * Web Server: [LuCI](http://luci.subsignal.org/trac)
  * Web App: [AngularJS](http://angularjs.org)
 
 [Bonjour](http://en.wikipedia.org/wiki/Bonjour_%28software%29) is used for
@@ -65,9 +68,6 @@ It's comparable in price to the Raspberry Pi but comes with wifi, internal
 storage, a case and a power supply. And the Raspberry Pi would be overpowered
 for that task.
 
-Only drawback is that the internal storage is just 4MB so a USB drive had to be added for my
-needs (a 256MB one would be fine).
-
 The board is a simple [MAX232](http://en.wikipedia.org/wiki/MAX232) based TTL
 to RS232 adapter. The UART on the router works at 3.3V so the MAX232 converts
 it to signals compatible with other RS232 devices. You can find them on eBay
@@ -88,7 +88,8 @@ I did add a 10K pull-up resistor between VCC and TX as recommended on the
 documentation but I'm not sure if it's necessary.
 
 Do note that you'll need a straight DB9<->DB9 male-female cable (or you'll
-spend a few days wondering why it doesn't work with a null-modem cable).
+spend a few days wondering why it doesn't work with a null-modem cable, not
+that it happened to me...).
 
 ## Installation
 

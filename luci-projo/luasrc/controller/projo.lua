@@ -1,7 +1,7 @@
 module("luci.controller.projo", package.seeall)
 
 
-host = "192.168.1.3"
+host = "127.0.0.1"
 port = 2323
 
 commands = {

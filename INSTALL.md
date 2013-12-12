@@ -92,43 +92,6 @@ Start avahi at boot:
 
     ln -s /etc/init.d/avahi-daemon /etc/rc.d/S99avahi
 
-## Storage
-        
-As the 4MB of flash built-in into the router won't be enough for our needs,
-let's add more space using a usb key.
-Create an ext4 partition on usb key using another computer and plug it afterwards
-on the router. Also create a small swap partition that will be only used
-punctually.
-
-Install usb storage support packages:
-
-    opkg update
-    opkg install kmod-usb-storage block-mount kmod-fs-ext4
-
-    mkdir /mnt/usb
-    mount /dev/sda1 /mnt/usb
-
-    # copy existing overlay to the usb key
-    tar -C /overlay -cvf - . | tar -C /mnt/usb -xf -
-
-Edit `/etc/config/fstab` to configure this partition as the new overlay
-
-    config mount
-            option target        /overlay
-            option device        /dev/sda1
-            option fstype        ext4
-            option options       rw,sync
-            option enabled       1
-            option enabled_fsck  0
-        
-Reboot and you should see something like that:
-
-    root@OpenWrt:~# df -h /
-    Filesystem                Size      Used Available Use% Mounted on
-    rootfs                    3.7G    122.3M      3.4G   3% /
-
-Now there is a bunch of free space instead of having to fit everything in 4M
-
 ## Serial port
 
 Comment this line in `/etc/inittab` so we can free the serial port for our use instead of a console:
