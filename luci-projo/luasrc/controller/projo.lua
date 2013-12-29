@@ -1,8 +1,10 @@
 module("luci.controller.projo", package.seeall)
 
 
-host = "192.168.1.6"
+host = "127.0.0.1"
 port = 2323
+
+DEBUG = false
 
 commands = {
         ["power"]= {["on"]= "POW=ON", ["off"]= "POW=OFF", ["status"]= "POW=?"},
@@ -119,34 +121,47 @@ function read_serial(command)
     local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
-        return "ser2net error: " .. code .. msg
+        local errormsg = "ser2net error: " .. code .. msg
+        luci.http.status(500, errormsg)
+        luci.http.close()
+        return errormsg
     end
 
     local linesrc = sock:linesource()
     -- flush the read buffer
     linesrc(true)
     local ser_command = string.format("\r*%s#\r", command)
-    --print("request: " .. command .. "\n")
+    if DEBUG then print("request: " .. command .. "\n") end
     sock:sendall(ser_command)
 
-    local line = linesrc()
-    --if line then
-    --    print("first line: " .. line .. "\n")
-    --end
-    line = linesrc() -- get a second line to skip the echo
-    --if line then
-    --    print("second line: " .. line .. "\n")
-    --end
+    local line = ""
+    local answer = nil
+    local operation = command:match("(%w+)=%w*")
+    while not answer do
+        line = linesrc()
+        if line then
+            if DEBUG then print("got: " .. line .. "\n") end
+            -- find a line that's not a local echo
+            if string.find(line, "^\*.+#$") ~= nil then
+                -- check if the line refer to the operation requested
+                if string.find(line, "^\*" .. operation ..".+#$") ~= nil then
+                    answer = line
+                end
+            end
+        end
+    end
     sock:close()
 
-    if line and line ~= "*Block item#" then -- this *Block item# answer might be a bug on the device's part
-        local key, value = line:match("(%w+)=(%w+)")
+    -- this *Block item# answer might be a bug on the device's part
+    if answer and answer ~= "*Block item#" then
+        -- Extract the value part of the answer
+        local key, value = answer:match("(%w+)=(%w+)")
         if value ~= nil then
-            print("info", "value: " .. value .. "\n")
+            if DEBUG then print("info", "value: " .. value .. "\n") end
             return value
         end
     end
-    return "OFF"
+    return "OFF" -- fallback
 end
 
 function write_serial(command)
