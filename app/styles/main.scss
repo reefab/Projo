@@ -20,6 +20,10 @@ body {
 	background-color: rgb(255, 255, 255);
 }
 
+.ng-scope {
+    margin: 0;
+}
+
 #toucharea {
     background-color: rgb(125,126,125);
     @include filter-gradient(#7d7e7d, #0e0e0e, horizontal);

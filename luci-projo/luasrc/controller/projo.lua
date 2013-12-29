@@ -1,7 +1,7 @@
 module("luci.controller.projo", package.seeall)
 
 
-host = "127.0.0.1"
+host = "192.168.1.6"
 port = 2323
 
 commands = {
@@ -119,18 +119,34 @@ function read_serial(command)
     local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
-        return nil, code, msg
+        return "ser2net error: " .. code .. msg
     end
-    local ser_command = string.format("\r*%s#\r", command)
-    sock:sendall(ser_command)
 
     local linesrc = sock:linesource()
-    local line, code, error = linesrc()
+    -- flush the read buffer
+    linesrc(true)
+    local ser_command = string.format("\r*%s#\r", command)
+    --print("request: " .. command .. "\n")
+    sock:sendall(ser_command)
 
-    line = linesrc()
-    local key, value = line:match("(%w+)=(%w+)")
+    local line = linesrc()
+    --if line then
+    --    print("first line: " .. line .. "\n")
+    --end
+    line = linesrc() -- get a second line to skip the echo
+    --if line then
+    --    print("second line: " .. line .. "\n")
+    --end
     sock:close()
-    return value
+
+    if line and line ~= "*Block item#" then -- this *Block item# answer might be a bug on the device's part
+        local key, value = line:match("(%w+)=(%w+)")
+        if value ~= nil then
+            print("info", "value: " .. value .. "\n")
+            return value
+        end
+    end
+    return "OFF"
 end
 
 function write_serial(command)
@@ -138,7 +154,7 @@ function write_serial(command)
     local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
-        return nil, code, msg
+        return "ser2net error: " .. code .. msg
     end
     local ser_command = string.format("\r*%s#\r", command)
     sock:sendall(ser_command)

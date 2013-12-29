@@ -5,7 +5,7 @@
 A server and mobile web app I made to control my video projector without a
 remote.
 
-I can now switch the projector on/off, navigate the menu and blank the screen
+I can now switch the projector on/off, easily set the 3d mode, navigate the menu and blank the screen
 using my phone (or other web-enabled device).
 
 My current setup is a [Benq
@@ -77,7 +77,7 @@ for a pittance by searching for "TTL to RS232".
 
 Wiring is simple:
 
-* 5V from the router goes to the 5V pad on the board (I added hot-glue to secure
+* 5V pad from the router goes to the 5V on the board (I added hot-glue to secure
   it after soldering)
 * Ground from the router goes to the ground pin on the board
 * RX on the router goes to TX on the board
