@@ -121,34 +121,36 @@ function read_serial(command)
     local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
-        local errormsg = "ser2net error: " .. code .. msg
+        local errormsg = "ser2net error: " .. code .. " " .. msg
         luci.http.status(500, errormsg)
-        luci.http.close()
         return errormsg
     end
 
     local linesrc = sock:linesource()
-    -- flush the read buffer
-    linesrc(true)
-    local ser_command = string.format("\r*%s#\r", command)
-    if DEBUG then print("request: " .. command .. "\n") end
-    sock:sendall(ser_command)
-
     local line = ""
     local answer = nil
     local operation = command:match("(%w+)=%w*")
-    while not answer do
+    local ser_command = string.format("\r*%s#\r", command)
+    local linenums = 0
+    -- flush the read buffer
+    linesrc(true)
+    if DEBUG then print("request: " .. command .. "\n") end
+    sock:sendall(ser_command)
+
+    -- Try to extract the correct answer from the next X lines
+    while not answer and linenums <= 20 do
         line = linesrc()
         if line then
             if DEBUG then print("got: " .. line .. "\n") end
             -- find a line that's not a local echo
             if string.find(line, "^\*.+#$") ~= nil then
                 -- check if the line refer to the operation requested
-                if string.find(line, "^\*" .. operation ..".+#$") ~= nil then
+                if string.find(line, "^\*" .. operation .. ".+#$") ~= nil then
                     answer = line
                 end
             end
         end
+        linenums = linenums + 1
     end
     sock:close()
 
@@ -169,7 +171,9 @@ function write_serial(command)
     local nixio = require("nixio")
     local sock, code, msg = nixio.connect(host, port)
     if not sock then
-        return "ser2net error: " .. code .. msg
+        local errormsg = "ser2net error: " .. code .. " " .. msg
+        luci.http.status(500, errormsg)
+        return errormsg
     end
     local ser_command = string.format("\r*%s#\r", command)
     sock:sendall(ser_command)
