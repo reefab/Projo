@@ -1,8 +1,12 @@
 module("luci.controller.projo", package.seeall)
 
-
-host = "127.0.0.1"
-port = 2323
+require 'nixio'
+require 'nixio.util'
+local SERIAL_DEVICE = '/dev/ttyATH0'
+local flags = nixio.open_flags('rdwr', 'excl', 'nonblock', 'sync')
+local serial = nixio.open(SERIAL_DEVICE, flags)
+assert(serial, nixio.strerror(nixio.errno()))
+serial:setblocking(true)
 
 commands = {
         ["power"]= {["on"]= "POW=ON", ["off"]= "POW=OFF", ["status"]= "POW=?"},
@@ -115,34 +119,21 @@ function threedee()
 end
 
 function read_serial(command)
-    require("nixio.util")
-    local nixio = require("nixio")
-    local sock, code, msg = nixio.connect(host, port)
-    if not sock then
-        return nil, code, msg
-    end
     local ser_command = string.format("\r*%s#\r", command)
-    sock:sendall(ser_command)
+    serial:writeall(ser_command)
 
-    local linesrc = sock:linesource()
+    local linesrc = serial:linesource()
     local line, code, error = linesrc()
 
     line = linesrc()
     local key, value = line:match("(%w+)=(%w+)")
-    sock:close()
     return value
 end
 
 function write_serial(command)
-    require("nixio.util")
-    local nixio = require("nixio")
-    local sock, code, msg = nixio.connect(host, port)
-    if not sock then
-        return nil, code, msg
-    end
     local ser_command = string.format("\r*%s#\r", command)
-    sock:sendall(ser_command)
-    sock:close()
+    serial:writeall(ser_command)
+    --serial:close()
 end
 
 function get_method()

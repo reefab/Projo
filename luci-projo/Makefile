@@ -12,7 +12,7 @@ define Package/luci-projo
 	SUBMENU:=3. Applications
 	MAINTAINER:=Fabien Piuzzi <reefab@demenzia.net>
 	TITLE:=Remote for serial connected AV devices
-	DEPENDS:=+luci-lib-web +luci-lib-lucid-http +ser2net
+	DEPENDS:=+luci-lib-web +luci-lib-lucid-http
 endef
 
 define Package/luci-projo/description
