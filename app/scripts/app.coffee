@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('configuration', [])
-    .constant('URI_ROOT', '/luci/projo')
+    .constant('URI_ROOT', '/cgi-bin/luci/projo')
 
 angular.module('ProjoApp', ['hmTouchEvents', 'powerServices', 'menuServices', 'blankServices', 'modelnameServices', 'stereoServices', 'configuration'])
   .config ($routeProvider) ->
