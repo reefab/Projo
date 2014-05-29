@@ -56,12 +56,12 @@ function power()
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands.power.status)
-        luci.http.write_json({["status"]= result:lower()})
+        luci.http.write_json({["function"]= "power", ["status"]= result:lower()})
     else
         local status = get_node()
         if commands.power[status] then
             write_serial(commands.power[status])
-            luci.http.write_json({["status"]= "ok"})
+            luci.http.write_json({["function"]= "power", ["status"]= status})
         end
     end
 end
@@ -70,12 +70,12 @@ function blank()
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands.blank.status)
-        luci.http.write_json({["status"]= result:lower()})
+        luci.http.write_json({["function"]= "blank", ["status"]= result:lower()})
     else
         local status = get_node()
         if commands.blank[status] then
             write_serial(commands.blank[status])
-            luci.http.write_json({["status"]= "ok"})
+            luci.http.write_json({["function"]= "blank", ["status"]= status})
         end
     end
 end
@@ -85,7 +85,7 @@ function menu()
     local status = get_node()
     if commands.blank[status] then
         write_serial(commands.menu[status])
-        luci.http.write_json({["status"]= "ok"})
+        luci.http.write_json({["function"]= "menu", ["status"]= status})
     end
 end
 
@@ -93,14 +93,14 @@ function modelname()
     luci.http.prepare_content("application/json")
     local result = ''
     result = read_serial(commands.modelname.status)
-    luci.http.write_json({["status"]= result:lower()})
+    luci.http.write_json({["function"]= "modelname", ["status"]= result:lower()})
 end
 
 function threedee()
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands["3d"].status)
-        luci.http.write_json({["status"]= result})
+        luci.http.write_json({["function"]= "3d", ["status"]= result})
     else
         local status = get_node()
         if commands.blank[status] then
@@ -113,7 +113,7 @@ function threedee()
             elseif status == "OFF" then
                 result = "None"
             end
-            luci.http.write_json({["status"]= result})
+            luci.http.write_json({["function"]= "3d", ["status"]= result})
         end
     end
 end
