@@ -1,1 +1,1 @@
-2323:raw:30:/dev/ttyATH0:115200
+2323:telnet:0:/dev/ttyATH0:9600
