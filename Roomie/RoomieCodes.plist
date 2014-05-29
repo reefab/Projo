@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>codes</key>
+		<dict>
+			<key>3D SBS</key>
+			<string>POST /luci/projo/3d/sbs
+</string>
+			<key>CURSOR LEFT</key>
+			<string>POST /luci/projo/menu/left
+</string>
+			<key>3D TB</key>
+			<string>POST /luci/projo/3d/tb
+</string>
+			<key>CURSOR ENTER</key>
+			<string>POST /luci/projo/menu/enter
+</string>
+			<key>3D OFF</key>
+			<string>POST /luci/projo/3d/off
+</string>
+			<key>MENU OFF</key>
+			<string>POST /luci/projo/menu/off
+</string>
+			<key>BLANK OFF</key>
+			<string>POST /luci/projo/blank/off
+</string>
+			<key>POWER ON</key>
+			<string>POST /luci/projo/power/on
+</string>
+			<key>MENU ON</key>
+			<string>POST /luci/projo/menu/on
+</string>
+			<key>POWER OFF</key>
+			<string>POST /luci/projo/power/off
+</string>
+			<key>CURSOR RIGHT</key>
+			<string>POST /luci/projo/menu/right
+</string>
+			<key>CURSOR DOWN</key>
+			<string>POST /luci/projo/menu/down
+</string>
+			<key>3D FS</key>
+			<string>POST /luci/projo/3d/fs
+</string>
+			<key>CURSOR UP</key>
+			<string>POST /luci/projo/menu/up
+</string>
+			<key>BLANK ON</key>
+			<string>POST /luci/projo/blank/on
+</string>
+		</dict>
+		<key>cat</key>
+		<string>W1070</string>
+		<key>method</key>
+		<string>http</string>
+		<key>brand</key>
+		<string>BenQ</string>
+		<key>type</key>
+		<integer>15</integer>
+	</dict>
+</array>
+</plist>

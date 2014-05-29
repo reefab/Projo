@@ -26,6 +26,13 @@ Crestron protocol seems to be common to multiple brand of AV equipment.
 A version made for the Raspberry Pi (or other "generic" \*nix for that matter)
 is available in it's own branch.
 
+## Roomie
+
+Because it uses REST-JOSN as supported by many clients, I was able to integrate
+it into [Roomie](http://www.roomieremote.com). A configuration file is provided
+in the `Roomie` directory. Follow the directions in its official
+[documentation](http://www.roomieremote.com/faq/#customDevice) to activate it.
+
 ## Software
 
 ![Screenshot](screenshot.png)
