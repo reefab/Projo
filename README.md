@@ -1,12 +1,12 @@
 # Projo
 
-![Logo](app/images/ios-webapp-baseimage.png)
+![Logo](ios-webapp-baseimage.png)
 
 A server and mobile web app I made to control my video projector without a
 remote.
 
 I can now switch the projector on/off, navigate the menu and blank the screen
-using my phone.
+using my phone (or other web-enabled device).
 
 My current setup is a [Benq
 W1070](http://www.benq.com/product/projector/w1070/) projector that is linked to
@@ -23,16 +23,26 @@ I made it to fit my own needs but it should pretty much work out of the box for
 other devices (any \*nix running computer with a RS232 connector) and the
 Crestron protocol seems to be common to multiple brand of AV equipment.
 
+A version made for the Raspberry Pi (or other "generic" \*nix for that matter)
+is available in it's own branch.
+
+## Roomie
+
+Because it uses REST-JOSN as supported by many clients, I was able to integrate
+it into [Roomie](http://www.roomieremote.com). A configuration file is provided
+in the `Roomie` directory. Follow the directions in its official
+[documentation](http://www.roomieremote.com/faq/#customDevice) to activate it.
+
 ## Software
 
 ![Screenshot](screenshot.png)
 
  * OS: [OpenWRT](https://openwrt.org)
- * Web Server: [Flask](http://flask.pocoo.org)
+ * Web Server: [LuCI](http://luci.subsignal.org/trac)
  * Web App: [AngularJS](http://angularjs.org)
 
 [Bonjour](http://en.wikipedia.org/wiki/Bonjour_%28software%29) is used for
-auto-discovery so I just need to go the http://projo.local/ url on my mobile
+auto-discovery so I just need to go the http://projo.local/projo url on my mobile
 devices and optionally add the App to the Home Screen.
 
 Once launched there is a few buttons on the top and bottom. The dark area in
@@ -41,6 +51,10 @@ navigate in the menu, a tap select an item. The back button goes back one level.
 
 AngularJS has been selected because I needed an excuse to play with it. It's used
 in conjunction with [CoffeeScript](http://coffeescript.org), [Compass](http://compass-style.org), [Yeoman](http://yeoman.io), [Grunt](http://gruntjs.com) and [Bower](http://bower.io).
+
+The server side part is now in Lua (from Python) to drastically reduce the
+footprint needed. It went from ~150M to ~150K. It's also now packaged as a
+native Opkg package.
 
 ## Hardware
 
@@ -58,15 +72,10 @@ TTL to RS232 board and wiring
 
 The base block is a TP-Link TL-MR3020 router. I selected it for the following
 reasons: it's cheap, runs OpenWRT, has UART pins readily accessible, enough
-(albeit barely)
-room inside to fit the serial board and did I mention it's cheap? 
+(albeit barely) room inside to fit the serial board and did I mention it's cheap? 
 
 It's comparable in price to the Raspberry Pi but comes with wifi, internal
-storage, a case and a power supply. And the Raspberry Pi would be overpowered
-for that task.
-
-Only drawback is that the internal storage is just 4MB so a USB drive had to be added for my
-needs (a 256MB one would be fine).
+storage (incredibly small), a case and a power supply.
 
 The board is a simple [MAX232](http://en.wikipedia.org/wiki/MAX232) based TTL
 to RS232 adapter. The UART on the router works at 3.3V so the MAX232 converts
@@ -88,9 +97,12 @@ I did add a 10K pull-up resistor between VCC and TX as recommended on the
 documentation but I'm not sure if it's necessary.
 
 Do note that you'll need a straight DB9<->DB9 male-female cable (or you'll
-spend a few days wondering why it doesn't work with a null-modem cable).
+spend a few days wondering why it doesn't work with a null-modem cable, not
+that it happened to me...).
 
 ## Installation
 
-Here is a detailed [installation guide](INSTALL.md) that covers the setup needed to get it
-up and running.
+An [opkg](http://wiki.openwrt.org/doc/techref/opkg) file is provided for easy
+installation and there is a detailed [installation guide](INSTALL.md) that 
+covers the setup needed to get it up and running (mostly base OpenWRT setup
+information).

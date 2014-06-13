@@ -18,7 +18,7 @@ module.exports = (grunt) ->
   # configurable paths
   yeomanConfig =
     app: "app"
-    dist: "static"
+    dist: "luci-projo/htdocs/projo"
 
   try
     yeomanConfig.app = require("./bower.json").appPath or yeomanConfig.app
@@ -200,7 +200,7 @@ module.exports = (grunt) ->
           dot: true
           cwd: "<%= yeoman.app %>"
           dest: "<%= yeoman.dist %>"
-          src: ["*.{ico,png,txt}", ".htaccess", "bower_components/**/*", "images/{,*/}*.{gif,png,webp}", "styles/fonts/*"]
+          src: ["*.{ico,png,txt}", ".htaccess", "images/{,*/}*.{gif,png,webp}", "styles/fonts/*", "bower_components/font-awesome/font/*.woff", ]
         ,
           expand: true
           cwd: ".tmp/images"
