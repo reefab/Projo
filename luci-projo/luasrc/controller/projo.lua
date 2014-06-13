@@ -1,8 +1,12 @@
 module("luci.controller.projo", package.seeall)
 
-
-host = "127.0.0.1"
-port = 2323
+require 'nixio'
+require 'nixio.util'
+local SERIAL_DEVICE = '/dev/ttyATH0'
+local flags = nixio.open_flags('rdwr', 'excl', 'nonblock', 'sync')
+local serial = nixio.open(SERIAL_DEVICE, flags)
+assert(serial, nixio.strerror(nixio.errno()))
+serial:setblocking(true)
 
 commands = {
         ["power"]= {["on"]= "POW=ON", ["off"]= "POW=OFF", ["status"]= "POW=?"},
@@ -52,12 +56,12 @@ function power()
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands.power.status)
-        luci.http.write_json({["status"]= result:lower()})
+        luci.http.write_json({["function"]= "power", ["status"]= result:lower()})
     else
         local status = get_node()
         if commands.power[status] then
             write_serial(commands.power[status])
-            luci.http.write_json({["status"]= "ok"})
+            luci.http.write_json({["function"]= "power", ["status"]= status})
         end
     end
 end
@@ -66,12 +70,12 @@ function blank()
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands.blank.status)
-        luci.http.write_json({["status"]= result:lower()})
+        luci.http.write_json({["function"]= "blank", ["status"]= result:lower()})
     else
         local status = get_node()
         if commands.blank[status] then
             write_serial(commands.blank[status])
-            luci.http.write_json({["status"]= "ok"})
+            luci.http.write_json({["function"]= "blank", ["status"]= status})
         end
     end
 end
@@ -81,7 +85,7 @@ function menu()
     local status = get_node()
     if commands.blank[status] then
         write_serial(commands.menu[status])
-        luci.http.write_json({["status"]= "ok"})
+        luci.http.write_json({["function"]= "menu", ["status"]= status})
     end
 end
 
@@ -89,14 +93,14 @@ function modelname()
     luci.http.prepare_content("application/json")
     local result = ''
     result = read_serial(commands.modelname.status)
-    luci.http.write_json({["status"]= result:lower()})
+    luci.http.write_json({["function"]= "modelname", ["status"]= result:lower()})
 end
 
 function threedee()
     luci.http.prepare_content("application/json")
     if get_method() == 'GET' then
         local result = read_serial(commands["3d"].status)
-        luci.http.write_json({["status"]= result})
+        luci.http.write_json({["function"]= "3d", ["status"]= result})
     else
         local status = get_node()
         if commands.blank[status] then
@@ -109,40 +113,27 @@ function threedee()
             elseif status == "OFF" then
                 result = "None"
             end
-            luci.http.write_json({["status"]= result})
+            luci.http.write_json({["function"]= "3d", ["status"]= result})
         end
     end
 end
 
 function read_serial(command)
-    require("nixio.util")
-    local nixio = require("nixio")
-    local sock, code, msg = nixio.connect(host, port)
-    if not sock then
-        return nil, code, msg
-    end
     local ser_command = string.format("\r*%s#\r", command)
-    sock:sendall(ser_command)
+    serial:writeall(ser_command)
 
-    local linesrc = sock:linesource()
+    local linesrc = serial:linesource()
     local line, code, error = linesrc()
 
     line = linesrc()
     local key, value = line:match("(%w+)=(%w+)")
-    sock:close()
     return value
 end
 
 function write_serial(command)
-    require("nixio.util")
-    local nixio = require("nixio")
-    local sock, code, msg = nixio.connect(host, port)
-    if not sock then
-        return nil, code, msg
-    end
     local ser_command = string.format("\r*%s#\r", command)
-    sock:sendall(ser_command)
-    sock:close()
+    serial:writeall(ser_command)
+    --serial:close()
 end
 
 function get_method()
