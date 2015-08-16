@@ -90,7 +90,8 @@ add `enable-dbus=no` into the `[server]` section as follow:
 
 Start avahi at boot: 
 
-    ln -s /etc/init.d/avahi-daemon /etc/rc.d/S99avahi
+    /etc/init.d/avahi-daemon enable
+    /etc/init.d/avahi-daemon start
 
 ## Serial port
 
@@ -111,8 +112,15 @@ Copy the ser2net `ser2net.init` init script to `/etc/init.d/ser2net`.
 
 Activate the init script:
 
-    /etc/init.d/ser2net start
     /etc/init.d/ser2net enable
+    /etc/init.d/ser2net start
+    
+Enable uhttpd built-in lua interpreter for much faster requests.
+
+    uci set uhttpd.main.lua_prefix=/luci
+    uci set uhttpd.main.lua_handler=/usr/lib/lua/luci/sgi/uhttpd.lua/
+    /etc/init.d/uhttpd enable
+    /etc/init.d/uhttpd start
 
 ## All done!
 
@@ -121,7 +129,7 @@ projector on like a 21st century denizen.
 
 ## Build and Deployment
 
-### Building
+### Building the web app
 
 You'll need node installed on your local machine beforehand.
 
