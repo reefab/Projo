@@ -96,14 +96,13 @@ Start avahi at boot:
 
 Comment this line in `/etc/inittab` so we can free the serial port for our use instead of a console:
 
-    #ttyATH0::askfirst:/bin/ash --login
+    ::askconsole:/bin/ash --login
 
 ## Install
 
-Copy the package file: `luci-projo_<X>_ar71xx.ipk` to your device and install
-it.
+Copy the .ipk package file to your device and install it.
 
-    opkg install luci-projo_0.9-<X>_ar71xx.ipk
+    opkg install luci-app-projo*.ipk
 
 This will install the dependencies.
 
