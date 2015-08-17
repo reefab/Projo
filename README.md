@@ -1,6 +1,6 @@
 # Projo
 
-![Logo](ios-webapp-baseimage.png)
+![Logo](docs/ios-webapp-baseimage.png)
 
 A server and mobile web app I made to control my video projector without a
 remote.
@@ -24,7 +24,7 @@ other devices (any \*nix running computer with a RS232 connector) and the
 Crestron protocol seems to be common to multiple brand of AV equipment.
 
 A version made for the Raspberry Pi (or other "generic" \*nix for that matter)
-is available in it's own branch.
+is available in its own branch.
 
 ## Roomie
 
@@ -35,9 +35,9 @@ in the `Roomie` directory. Follow the directions in its official
 
 ## Software
 
-![Screenshot](screenshot.png)
+![Screenshot](docs/screenshot.png)
 
- * OS: [OpenWRT](https://openwrt.org)
+ * OS: [OpenWRT Barrier Breaker](https://openwrt.org)
  * Web Server: [LuCI](http://luci.subsignal.org/trac)
  * Web App: [AngularJS](http://angularjs.org)
 
@@ -60,15 +60,16 @@ native Opkg package.
 
 Serial cable on projector below ceiling...
 
-![Serial cable on projector below ceiling...](http://farm3.staticflickr.com/2890/9703297446_a1c43fa01d_c.jpg)
+![Serial cable on projector below ceiling...](docs/projector.jpg)
 
 ...that goes upstairs to the device
 
-![...that goes upstairs to the device](http://farm8.staticflickr.com/7391/9703298054_edb5deed06_c.jpg)
+![...that goes upstairs to the device](docs/connected.jpg)
 
 TTL to RS232 board and wiring
 
-![TTL to RS232 board and wiring](http://farm4.staticflickr.com/3674/9700287609_4cc2cd62fa_c.jpg)
+![TTL to RS232 board and wiring](docs/boards.jpg)
+![Tight fit inside](docs/inside.jpg)
 
 The base block is a TP-Link TL-MR3020 router. I selected it for the following
 reasons: it's cheap, runs OpenWRT, has UART pins readily accessible, enough
@@ -102,6 +103,6 @@ that it happened to me...).
 ## Installation
 
 An [opkg](http://wiki.openwrt.org/doc/techref/opkg) file is provided for easy
-installation and there is a detailed [installation guide](INSTALL.md) that 
+installation and there is a detailed [installation guide](docs/INSTALL.md) that 
 covers the setup needed to get it up and running (mostly base OpenWRT setup
 information).
