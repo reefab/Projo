@@ -28,7 +28,7 @@ is available in its own branch.
 
 ## Roomie
 
-Because it uses REST-JOSN as supported by many clients, I was able to integrate
+Because it uses REST-JSON as supported by many clients, I was able to integrate
 it into [Roomie](http://www.roomieremote.com). A configuration file is provided
 in the `Roomie` directory. Follow the directions in its official
 [documentation](http://www.roomieremote.com/faq/#customDevice) to activate it.
